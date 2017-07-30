@@ -5,7 +5,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import Home from './Home';
+import Home from './home';
 import 'font-awesome/scss/font-awesome.scss';
 
 require('../styles/style.scss');
