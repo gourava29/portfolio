@@ -1,5 +1,9 @@
 {
-  "name": "basic-react-on-rails",
+  "scripts": {
+    "postinstall": "cd client && yarn install",
+    "test": "cd client && npm test"
+  },
+  "name": "portfolio",
   "private": true,
   "dependencies": {}
 }

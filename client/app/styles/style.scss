@@ -1,0 +1,101 @@
+@import 'assets/foundation.scss';
+
+html { font-size: 62.5%; }
+
+.wrapper {
+	display: table;
+	background-image: url("../images/pexels-photo.jpg");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	height: 100vh;
+  	width: 100vw;
+}
+
+.center {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.clear-both {
+	clear: both;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.vertical-align-middle {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.heading {
+	margin: 0 auto;
+	text-align: center;
+	background-color: white;
+	border-radius: 1rem;
+	padding: 1rem;
+
+	div {
+	    -webkit-text-fill-color: transparent;
+    	-webkit-background-clip: text; 
+    	background-image: url("../images/pexels-photo.jpg");
+    	display:block;
+	}
+
+	@include breakpoint(small){
+		@include breakpoint(landscape){
+			width: 40rem;
+			.full-name {
+				font-size: 4rem;
+			}
+
+			.role {
+				font-size: 3rem;
+			}
+		}
+		@include breakpoint(portrait){
+			width: 26rem;
+			.full-name {
+				font-size: 3rem;
+			}
+
+			.role {
+				font-size: 2rem;
+			}
+		}
+	}
+}
+
+.social-connections{
+	color: white;
+    font-size: 1.5rem;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    padding: 10px;		
+
+	.title, .social-connect {
+		padding: .5rem;
+		.quora, .linkedin {
+		    color: white;
+			padding: 2px;
+			border-radius: 2px;
+		}
+		.quora {
+			background: #B92B27;
+		}
+		.linkedin {
+			background: #0073b1;
+			padding: 3px;
+		}
+	}
+
+	.social-connect {
+		display: inline-block;
+	}
+
+}
