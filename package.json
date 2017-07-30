@@ -1,13 +1,12 @@
 {
   "scripts": {
-    "postinstall": "cd client && yarn install",
+    "postinstall": "cd client && npm install",
     "test": "cd client && npm test"
   },
   "name": "portfolio",
   "private": true,
   "dependencies": {},
   "engines": {
-    "node": "8.2.1",
-    "yarn": "0.27.5"
+    "node": "8.2.1"
   }
 }
