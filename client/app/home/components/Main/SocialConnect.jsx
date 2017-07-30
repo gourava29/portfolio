@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 
 const SocialConnect = (props) => {
 	let iconButton = props.name;
