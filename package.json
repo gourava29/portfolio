@@ -7,6 +7,7 @@
   "private": true,
   "dependencies": {},
   "engines": {
-    "node": "8.2.1"
+    "node": "8.2.1",
+    "yarn": "0.27.5"
   }
 }
