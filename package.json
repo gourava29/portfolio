@@ -5,5 +5,8 @@
   },
   "name": "portfolio",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "engines": {
+    "node": "8.2.1"
+  }
 }
