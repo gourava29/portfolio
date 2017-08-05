@@ -7,10 +7,47 @@ const { resolve } = require('path');
 
 const ManifestPlugin = require('webpack-manifest-plugin');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
-
+const CompressionPlugin = require("compression-webpack-plugin");
 const configPath = resolve('..', 'config');
 const { devBuild, manifest, webpackOutputPath, webpackPublicOutputDir } =
   webpackConfigLoader(configPath);
+
+let plugins = [
+  new webpack.EnvironmentPlugin({
+    NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+    DEBUG: false,
+  }),
+  new ManifestPlugin({ fileName: manifest, writeToFileEmit: true })
+];
+if(process.env.NODE_ENV == 'production'){
+
+  plugins = plugins.concat([
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: true,
+      compress: {
+        warnings: false, // Suppress uglification warnings
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true,
+        screw_ie8: true
+      },
+      output: {
+        comments: false,
+      },
+      exclude: [/\.min\.js$/gi] // skip pre-minified libs
+    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0
+    })
+  ]);
+}
+
 
 const config = {
 
@@ -38,13 +75,7 @@ const config = {
     extensions: ['.js', '.jsx'],
   },
 
-  plugins: [
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
-      DEBUG: false,
-    }),
-    new ManifestPlugin({ fileName: manifest, writeToFileEmit: true }),
-  ],
+  plugins: plugins,
 
   module: {
     rules: [
