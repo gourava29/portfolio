@@ -2,6 +2,7 @@ import React from 'react';
 
 import MainComponent from '../../../../app/home/components/Main/MainComponent';
 import SocialConnections from '../../../../app/home/components/Main/SocialConnections';
+import NodeComponent from '../../../../app/home/components/Common/NodeComponent';
 
 describe('MainComponent', () => {
   const props = {
@@ -13,34 +14,58 @@ describe('MainComponent', () => {
     ]
   };
   const wrapper = shallow(<MainComponent {...props}/>);
+  
+  describe('NodeComponent', () => {
+    const nodeComponent = wrapper.find(NodeComponent);
+    
+    it('has nodeComponent', () => {
+      expect(nodeComponent).to.have.length(1);
+    });
+    
+    it('contains mainNode prop', () => {
+      expect(nodeComponent.props().mainNode).to.not.be.undefined;
+    });
 
-  it('Contains full-name', () => {
-    const fullName = wrapper.find(".full-name");
-    expect(fullName).to.have.length(1);
-    expect(fullName.first().text()).to.equal(props.title);
+    it('contains childNode prop', () => {
+      expect(nodeComponent.props().childNodes).to.not.be.undefined;
+    });
+
+    it('calls renderMainNode', () => {
+      const mainComponentInstance = wrapper.instance();
+      const renderMainNodeSpy = spy(mainComponentInstance, 'renderMainNode');
+      mainComponentInstance.render();
+      expect(renderMainNodeSpy.calledOnce).to.be.true;
+    });
+
+    describe("renders mainNode", () => {    
+      const mainComponentInstance = wrapper.instance();
+      const mainNode = mount(mainComponentInstance.renderMainNode());
+
+      it('has classes', () => {
+        expect(mainNode.hasClass("heading")).to.be.true;
+        expect(mainNode.hasClass("noselect")).to.be.true;
+        expect(mainNode.hasClass("transparent-background")).to.be.true;
+      });
+
+      it('contains full-name', () => {
+          const nameElement = mainNode.find(".full-name");
+          expect(nameElement).to.have.length(1);
+          expect(nameElement.text()).to.equal(props.title);
+      });
+
+      it('Contains Role', () => {
+        const roleElement = mainNode.find(".role");
+        expect(roleElement).to.have.length(1);
+        expect(roleElement.text()).to.equal(props.role);
+      });
+
+    });
+
   });
   
-  it('Contains Role', () => {
-    const role = wrapper.find(".role");
-    expect(role).to.have.length(1);
-    expect(role.first().text()).to.equal(props.role);
-  });
-
   it('Contains SocialConnections', () => {
     const socialConnection = wrapper.find(SocialConnections);
     expect(socialConnection).to.have.length(1);
     expect(socialConnection.props().connections).to.equal(props.connections);
   });
-
-  // it('calls updateName on textbox Change', () => {
-  // 	let compInstance = wrapper.instance();
-  // 	let updateNameSpy = spy(compInstance, 'updateName');
-  // 	wrapper.find("input[type='text']").simulate('change', {target: {}});
-  // 	expect(updateNameSpy.calledOnce).to.be.true;
-  // });
-
-  // it('Changes the name on textbox change', () => {
-  // 	wrapper.find("input[type='text']").simulate('change', {target: {value: 'Tester changed'}});
-  // 	expect(wrapper.text()).to.contain("Tester changed");
-  // });
 });

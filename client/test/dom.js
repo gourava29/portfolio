@@ -11,6 +11,13 @@ function copyProps(src, target) {
 }
 
 global.window = window;
+global.window.resizeTo = (width, height) => {
+  global.window.innerWidth = width || global.window.innerWidth;
+  global.window.innerHeight = width || global.window.innerHeight;
+  var evt = global.window.document.createEvent('UIEvents'); 
+  evt.initUIEvent('resize', true, false, global.window, 0); 
+  global.window.dispatchEvent(evt);
+};
 global.document = window.document;
 global.navigator = {
   userAgent: 'node.js',

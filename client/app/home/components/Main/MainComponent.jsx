@@ -1,21 +1,39 @@
 import React from 'react';
 import SocialConnections from './SocialConnections';
+import NodeComponent from '../Common/NodeComponent';
 
-const Main = (props) => (
-    <div className='vertical-align-middle'>
-      <div className='heading'>
+export default class Main extends React.Component {
+  constructor(props) {
+    super(props);
+    this.renderMainNode = this.renderMainNode.bind(this);
+  }
+
+  renderMainNode() {
+    return(
+      <div className='heading noselect transparent-background'>
         <div className="full-name">
-          {props.title}
+          {this.props.title}
         </div>
         <div className="role">
-           {props.role}
+           {this.props.role}
         </div>
       </div>
-      <SocialConnections connections={props.connections}/>
-    </div>
-)
+    )
+  }
 
-export default Main;
+  render() {
+    let childNodes = [];
+    ['Skills', 'Work', 'Hobbies'].forEach(function(item, index) {
+      childNodes.push(<div>{item.toUpperCase()}</div>);
+    });
+    return (
+      <div>
+        <NodeComponent showEdges={true} childNodes={childNodes} mainNode={this.renderMainNode()}/>
+        <SocialConnections connections={this.props.connections}/>
+      </div>
+    );
+  }
+}
 
 
 
