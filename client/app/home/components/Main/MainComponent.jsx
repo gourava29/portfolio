@@ -23,7 +23,7 @@ export default class Main extends React.Component {
 
   render() {
     let childNodes = [];
-    ['Skills', 'Work', 'Hobbies', 'FAQ'].forEach(function(item, index) {
+    ['FAQ', 'Skills', 'Work', 'Hobbies'].forEach(function(item, index) {
       childNodes.push(<div>{item.toUpperCase()}</div>);
     });
     return (
