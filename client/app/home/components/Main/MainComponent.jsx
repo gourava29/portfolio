@@ -15,7 +15,7 @@ export default class Main extends React.Component {
           {this.props.title}
         </div>
         <div className="role">
-           {this.props.role}
+          {this.props.role}
         </div>
       </div>
     )
@@ -23,12 +23,12 @@ export default class Main extends React.Component {
 
   render() {
     let childNodes = [];
-    ['Skills', 'Work', 'Hobbies'].forEach(function(item, index) {
+    ['FAQ', 'Skills', 'Work', 'Hobbies'].forEach(function(item, index) {
       childNodes.push(<div>{item.toUpperCase()}</div>);
     });
     return (
       <div>
-        <NodeComponent showEdges={true} childNodes={childNodes} mainNode={this.renderMainNode()}/>
+        <NodeComponent showEdges={false} childNodes={childNodes} mainNode={this.renderMainNode()}/>
         <SocialConnections connections={this.props.connections}/>
       </div>
     );

@@ -63,7 +63,7 @@ describe('NodeComponent', () => {
 	    global.window.resizeTo(resizeWidth, 400);
 	    let newState = app.instance().state;
 	    expect(newState).to.not.deep.equal(previousState);
-	    expect(newState.childNodeProperties.C_DIAM).to.equals(50);
+	    expect(newState.childNodeProperties.C_DIAM).to.equals(60);
 	    expect(newState.mainNodeProperties.M_X).to.equals(resizeWidth/2);
 
 	    resizeWidth = 1025;
@@ -74,8 +74,15 @@ describe('NodeComponent', () => {
 	   
 	  
 	it('finalDeltaPositions', () => {
-		expect(wrapperInstance.finalDeltaPositions(0)).to.deep.equal({ deltaX: 103.33322968661386, deltaY: 260.94016751628067 })
-		expect(wrapperInstance.finalDeltaPositions(1)).to.deep.equal({ deltaX: -163.33354062669176, deltaY: 260.93998799484996 });
+		const getDeltaPosition = (index) => {
+			const angle = wrapperInstance.BASE_ANGLE + ( index * wrapperInstance.SEPARATION_ANGLE );
+			const deltaX = wrapperInstance.fly_out_radius * Math.cos(angle*Math.PI/180) - (wrapperInstance.state.childNodeProperties.C_DIAM/2);
+			const deltaY = wrapperInstance.fly_out_radius * Math.sin(angle*Math.PI/180) + (wrapperInstance.state.childNodeProperties.C_DIAM/2);
+			return {deltaX, deltaY};
+		}
+		
+		expect(wrapperInstance.finalDeltaPositions(0)).to.deep.equal(getDeltaPosition(0));
+		expect(wrapperInstance.finalDeltaPositions(1)).to.deep.equal(getDeltaPosition(1));
 	});
 
 	it('openNode', () => {
@@ -94,7 +101,9 @@ describe('NodeComponent', () => {
 				left: spring(M_X - (wrapperInstance.state.childNodeProperties.C_DIAM/2)),
 				rotate: spring(0),
 				x: spring(M_X, {stiffness: 123, damping: 18}),
-				y: spring(M_Y, {stiffness: 123, damping: 18})
+				y: spring(M_Y, {stiffness: 123, damping: 18}),
+				height: 70,
+				width: 70
 			},
 			coOrdinates: {
 				x1: M_X,
@@ -116,8 +125,9 @@ describe('NodeComponent', () => {
 				top: spring(M_Y - deltaY, {stiffness: 123, damping: 18}),
 				rotate: spring(360, {stiffness: 123, damping: 18}),
 				x: spring(M_X  + deltaX + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18}),
-				y: spring(M_Y - deltaY + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18})
-
+				y: spring(M_Y - deltaY + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18}),
+				height: 70,
+				width: 70
 			},
 			coOrdinates : {
 				x1: M_X,
@@ -125,6 +135,33 @@ describe('NodeComponent', () => {
 			}
 		};
 		expect(wrapperInstance.visibleNodeStyle(0, M_X, M_Y)).to.deep.equal(expectedResult);
+	});
+
+	it('defaultMainNodeStyle', () => {
+		const {M_X, M_Y, M_HEIGHT, M_WIDTH} = wrapperInstance.state.mainNodeProperties;
+		const expectedResult = {
+	      top: spring(M_Y - M_HEIGHT/2),
+	      left: spring(M_X - M_WIDTH/2),
+	      height: spring(M_HEIGHT),
+	      width: spring(M_WIDTH),
+	      borderRadius: spring(10),
+	      fontSize: spring(10)
+	    };
+
+	    expect(wrapperInstance.defaultMainNodeStyle()).to.deep.equal(expectedResult);
+	});
+
+	it('visibleMainNodeStyle', () => {
+		const {M_X, M_Y} = wrapperInstance.state.mainNodeProperties;
+		return {
+	      top: spring(M_Y - 100/2),
+	      left: spring(M_X - 100/2),
+	      height: spring(100),
+	      width: spring(100),
+	      borderRadius: spring(100),
+	      fontSize: spring(5)
+	    };
+		expect(wrapperInstance.visibleMainNodeStyle()).to.deep.equal(expectedResult);
 	});
 
 	describe('renderEdge', () => {
@@ -153,24 +190,32 @@ describe('NodeComponent', () => {
 		});
 	});
 
-	it.only('render', () => {
+	it('render', () => {
 		//check child elements
-		const motionEls = wrapper.find("Motion");
-		expect(motionEls).to.have.length(props.childNodes.length);
-		motionEls.forEach((item, index) => {
-			expect(item.html()).contains(shallow(props.childNodes[index]).html());
-		})
-	
-		//check main button
-		const mainButton = wrapper.find(".main-button");
-		expect(mainButton).to.have.length(1);
-		const {M_X, M_Y, M_HEIGHT, M_WIDTH} = wrapperInstance.state.mainNodeProperties;
-		const mainComponentStyle = {
-	      position: 'fixed',
-	      top: M_Y - M_HEIGHT/2,
-	      left: M_X - M_WIDTH/2
-	    };
-		expect(mainButton.props().style).to.deep.equal(mainComponentStyle)
-		expect(mainButton.children().node).to.equal(props.mainNode);
-	})
+
+		const motionEls = wrapper.find(Motion);
+		const childComponentCount = props.childNodes.length;
+
+		const childContainerComponent = motionEls.findWhere(n => n.dive().hasClass("child-container"));
+		expect(childContainerComponent).to.have.length(childComponentCount);
+
+		childContainerComponent.forEach((item, index) => {
+			expect(item.dive().find(".child-button").first().html()).contains(shallow(props.childNodes[index]).html());
+		});
+
+		const mainButtonComponent = motionEls.findWhere(n => n.dive().hasClass("main-button"));
+		expect(mainButtonComponent).to.have.length(1);	
+		const mainComponentStyle = wrapperInstance.defaultMainNodeStyle();
+
+		expect(mainButtonComponent.props().style).to.deep.equal(mainComponentStyle);
+		expect(mainButtonComponent.html()).contains(shallow(props.mainNode).html());
+	});	
+
+	it('calls openNodes on click of child', () => {
+		const openNode = spy(wrapperInstance, "openNodes");
+		const motionEls = wrapper.find(Motion);
+		let mainButtonComponent = motionEls.findWhere(n => n.dive().hasClass("main-button"));
+		mainButtonComponent.dive().find(".main-button").simulate("click");
+		expect(openNode.calledOnce).to.be.true;
+	});
 });
