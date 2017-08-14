@@ -27,7 +27,7 @@ export default class NodeComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			nodeOpen: true
+			nodeOpen: props.openChild
 		};
 
 		this.updatePosition = this.updatePosition.bind(this);
@@ -48,6 +48,9 @@ export default class NodeComponent extends React.Component {
 
 	}
 
+	componentWillReceiveProps(nextProps){
+		this.setState({nodeOpen: nextProps.openChild});
+	}
 
   	componentWillMount() {
 	    this.updatePosition();
@@ -172,6 +175,12 @@ export default class NodeComponent extends React.Component {
 	    };
 	}
 
+	childNodeSelected(childNode){
+		console.log(this.props);
+		this.openNodes();
+		setTimeout(() => this.props.onChildNodeSelect(childNode.props.children.toLowerCase()), 500)
+	}
+
 	render() {
 		const {M_X, M_Y, M_HEIGHT, M_WIDTH} = this.state.mainNodeProperties;
 		
@@ -179,13 +188,7 @@ export default class NodeComponent extends React.Component {
 	      top: spring(M_Y - M_HEIGHT/2),
 	      left: spring(M_X - M_WIDTH/2)
 	    };
-	    
-	    if(!this.loaded) {
-	    	setTimeout(() => {
-	    		this.openNodes();
-	    	}, 500);
-	    	this.loaded = true;
-	    }
+
 	    let mainButtonStyle = this.state.nodeOpen ? this.visibleMainNodeStyle(M_X, M_Y) : this.defaultMainNodeStyle();
 		const mainClass = "main-button" + (this.state.nodeOpen ? " isActive" : "");
 		return (
@@ -198,7 +201,8 @@ export default class NodeComponent extends React.Component {
 							{
 								({width, height, top, left, rotate, x, y}) => (
 									<div className='child-container'>
-										<div	
+										<div
+											onClick={() => this.childNodeSelected(childNode)}
 											className={childClass}
 											style={{
 												top: top,

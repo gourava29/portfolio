@@ -10,7 +10,45 @@ export default class Home extends React.Component {
       connections: [
         {name: 'Quora', link: 'https://www.quora.com/profile/Gourav-Agarwal-6', iconClass: 'fa-quora'},
         {name: 'LinkedIn', link: 'https://www.linkedin.com/in/gourava29/', iconClass: 'fa-linkedin'}
-      ]
+      ],
+      relationships: {
+        type: "main",
+        childNodes: [
+          {
+            name: "work",
+            title: "About work",
+            relationships: {
+              type: 'Organization',
+              childNodes: [
+                {
+                  name: "Spellbound",
+                  relationships: {
+                    type: "Projects",
+                    childNodes: [
+                      {
+                        id: "1235",
+                        name: "DoesAnyone"
+                      },{
+                        id: "5424",
+                        name: "Enabli"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }, {
+            name: "skills",
+            title: "About skills"
+          }, {
+            name: "hobbies",
+            title: "About hobbies"
+          }, {
+            name: "me",
+            title: "About me"
+          }
+        ]
+      }
     };
   }
 
