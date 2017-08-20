@@ -1,19 +1,21 @@
 import React from 'react';
 
-import MainComponent from '../../../../app/home/components/Main/MainComponent';
+import Main from '../../../../app/home/components/Main/MainComponent';
 import SocialConnections from '../../../../app/home/components/Main/SocialConnections';
 import NodeComponent from '../../../../app/home/components/Common/NodeComponent';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 describe('MainComponent', () => {
   const props = {
-    title: "Test title",
+    name: "Test title",
     role: 'Web Developer',
     connections: [
       {name: 'Link1', link: 'https://www.link1.com', 'iconClass':'fa-quora'},
       {name: 'Link2', link: 'https://www.link2.com', img: 'link2.png'}
     ]
   };
-  const wrapper = shallow(<MainComponent {...props}/>);
+  const wrapper = shallow(<Main {...props}/>);
   
   describe('NodeComponent', () => {
     const nodeComponent = wrapper.find(NodeComponent);
@@ -50,7 +52,7 @@ describe('MainComponent', () => {
       it('contains full-name', () => {
           const nameElement = mainNode.find(".full-name");
           expect(nameElement).to.have.length(1);
-          expect(nameElement.text()).to.equal(props.title);
+          expect(nameElement.text()).to.equal(props.name);
       });
 
       it('Contains Role', () => {
