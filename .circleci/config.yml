@@ -6,6 +6,10 @@ version: 2
 jobs:
   build:
     working_directory: ~/repo
+    
+    dependencies:
+      pre:
+        - gem install bundler -v 1.15.1
 
     machine:
       node:
