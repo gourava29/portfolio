@@ -11,7 +11,7 @@ jobs:
       node:
         version: 8.2.1
       ruby:
-        version: 2.4.1p111
+        version: 2.4.1
 
     steps:
       - checkout
@@ -26,11 +26,8 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            rvm install 2.4.1
-            rvm use 2.4.1
             gem install bundler
             bundle update rails
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
             npm install
 
       - save_cache:
