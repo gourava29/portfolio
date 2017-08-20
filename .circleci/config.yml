@@ -29,6 +29,7 @@ jobs:
             gem install bundler
             bundle update rails
             npm install
+            sudo service postgresql start
 
       - save_cache:
           paths:
@@ -42,7 +43,8 @@ jobs:
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings  --timings-type=classname)"
             rspec
-            npm test                  
+            npm test 
+            sudo service postgresql stop                 
 
       # collect reports
       - store_test_results:
