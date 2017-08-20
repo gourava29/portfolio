@@ -26,6 +26,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            rvm use 2.4.1p111
             gem install bundler
             bundle update rails
             bundle install --jobs=4 --retry=3 --path vendor/bundle
