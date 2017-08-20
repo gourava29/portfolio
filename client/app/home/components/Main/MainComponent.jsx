@@ -2,6 +2,7 @@ import React from 'react';
 import SocialConnections from './SocialConnections';
 import NodeComponent from '../Common/NodeComponent';
 
+const emptyObject = {};
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,7 @@ export default class Main extends React.Component {
 
   render() {
     let childNodes = [];
-    Object.keys(this.props.relationships).forEach(function(item, index) {
+    Object.keys(this.props.relationships || emptyObject).forEach(function(item, index) {
       childNodes.push(<div>{item.toUpperCase()}</div>);
     });
     
