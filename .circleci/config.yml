@@ -10,6 +10,9 @@ jobs:
     machine:
       node:
         version: 8.2.1
+      ruby:
+        version: 2.4.1p111
+
 
     steps:
       - checkout
