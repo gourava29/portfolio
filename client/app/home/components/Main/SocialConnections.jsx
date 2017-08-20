@@ -1,6 +1,6 @@
 import React from 'react';
 import SocialConnect from './SocialConnect';
-
+const emptyArray = [];
 const SocialConnections = (props) => (
 	<div className='social-connections'>
 		<div className='center'>
@@ -9,7 +9,7 @@ const SocialConnections = (props) => (
 			</div>
 			<div className='inline-block center'>
 				{
-					props.connections.map(function(connection, i){
+					(props.connections || emptyArray).map(function(connection, i){
 			        	return <SocialConnect key={`social-connect-${i}`} {...connection}/>
 			    	})
 				}

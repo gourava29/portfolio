@@ -1,5 +1,8 @@
 import React from 'react';
-import Main from './components/Main/MainComponent';
+import Main from './components/Main/MainComponentContainer';
+import { Provider } from 'react-redux';
+
+import configureStore from './store';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -14,12 +17,13 @@ export default class Home extends React.Component {
     };
   }
 
-  componentDidMount = () => {};
-
   render() {
+    const store = configureStore(this.props);
     return (
       <div className='wrapper'>
-          <Main {...this.state}/>
+        <Provider store={store}>
+          <Main/>
+        </Provider>
       </div>
     );
   }

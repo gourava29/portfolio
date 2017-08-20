@@ -1,2 +1,2 @@
-<%= react_component("Home", prerender: false) %>
+<%= react_component("Home", props:User.find(1).to_json(:include => [:works, :hobbies, :skills]), prerender: false) %>
 

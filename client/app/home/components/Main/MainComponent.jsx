@@ -12,7 +12,7 @@ export default class Main extends React.Component {
     return(
       <div className='heading noselect transparent-background'>
         <div className="full-name">
-          {this.props.title}
+          {this.props.name}
         </div>
         <div className="role">
           {this.props.role}
@@ -26,6 +26,7 @@ export default class Main extends React.Component {
     ['FAQ', 'Skills', 'Work', 'Hobbies'].forEach(function(item, index) {
       childNodes.push(<div>{item.toUpperCase()}</div>);
     });
+    
     return (
       <div>
         <NodeComponent showEdges={false} childNodes={childNodes} mainNode={this.renderMainNode()}/>
@@ -34,6 +35,7 @@ export default class Main extends React.Component {
     );
   }
 }
+
 
 
 
