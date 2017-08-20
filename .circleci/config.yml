@@ -7,6 +7,10 @@ jobs:
   build:
     working_directory: ~/repo
 
+    machine:
+      node:
+        version: 8.2.1
+
     steps:
       - checkout
 
