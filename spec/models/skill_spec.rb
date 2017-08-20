@@ -29,4 +29,9 @@ RSpec.describe Skill, type: :model do
   	expect(Skill.reflect_on_association(:user).macro).to eq (:belongs_to)
   end
 
+  it "responds to to_relationship_format" do
+    skill = build(:skill)
+    expect(skill.respond_to?(:to_relationship_format)).to be_truthy
+  end
+
 end

@@ -139,6 +139,10 @@ GEM
       execjs (~> 2.5)
       rails (>= 3.2)
       rainbow (~> 2.2)
+    rspec-activemodel-mocks (1.0.3)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      rspec-mocks (>= 2.99, < 4.0)
     rspec-core (3.6.0)
       rspec-support (~> 3.6.0)
     rspec-expectations (3.6.0)
@@ -220,6 +224,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.2)
   react_on_rails
+  rspec-activemodel-mocks
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver

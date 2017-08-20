@@ -27,4 +27,13 @@ RSpec.describe Work, type: :model do
   it "belongs_to User" do
   	expect(Work.reflect_on_association(:user).macro).to eq (:belongs_to)
   end
+
+  it "has many projects" do
+    expect(Work.reflect_on_association(:projects).macro).to eq (:has_many)
+  end
+
+  it "responds to to_relationship_format" do
+    work = build(:work)
+    expect(work.respond_to?(:to_relationship_format)).to be_truthy
+  end
 end

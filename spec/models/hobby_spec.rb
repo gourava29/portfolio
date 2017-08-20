@@ -29,4 +29,9 @@ RSpec.describe Hobby, type: :model do
   	expect(Hobby.reflect_on_association(:user).macro).to eq (:belongs_to)
   end
 
+  it "responds to to_relationship_format" do
+    hobby = build(:hobby)
+    expect(hobby.respond_to?(:to_relationship_format)).to be_truthy
+  end
+
 end
