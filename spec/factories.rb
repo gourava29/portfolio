@@ -1,5 +1,9 @@
 # This will guess the User class
 FactoryGirl.define do
+  factory :project do
+    name "MyString"
+  end
+
   factory :user do
     name "John"
     role "Web Developer"

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+	include ModelHelper
+	
 	validates :name, presence: true
 	validates :role, presence: true
 

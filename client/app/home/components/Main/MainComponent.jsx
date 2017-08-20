@@ -23,7 +23,7 @@ export default class Main extends React.Component {
 
   render() {
     let childNodes = [];
-    ['FAQ', 'Skills', 'Work', 'Hobbies'].forEach(function(item, index) {
+    Object.keys(this.props.relationships).forEach(function(item, index) {
       childNodes.push(<div>{item.toUpperCase()}</div>);
     });
     
