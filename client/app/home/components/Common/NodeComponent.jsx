@@ -26,13 +26,9 @@ export default class NodeComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			nodeOpen: true
-		};
 
 		this.updatePosition = this.updatePosition.bind(this);
-    	this.openNodes = this.openNodes.bind(this);
-		this.defaultNodeStyle = this.defaultNodeStyle.bind(this);
+    	this.defaultNodeStyle = this.defaultNodeStyle.bind(this);
 		this.visibleNodeStyle = this.visibleNodeStyle.bind(this);
 		this.defaultMainNodeStyle = this.defaultMainNodeStyle.bind(this);
 		this.visibleMainNodeStyle = this.visibleMainNodeStyle.bind(this);
@@ -43,7 +39,6 @@ export default class NodeComponent extends React.Component {
 		this.SEPARATION_ANGLE = 180/(NUM_CHILDREN+1); //degrees
 		const FAN_ANGLE = (NUM_CHILDREN - 1) * this.SEPARATION_ANGLE; //degrees
 		this.BASE_ANGLE = ((180 - FAN_ANGLE)/2); // degrees
-		this.loaded = false;
 		this.fly_out_radius = 150;
 
 	}
@@ -90,13 +85,6 @@ export default class NodeComponent extends React.Component {
 			deltaX: this.fly_out_radius * Math.cos(toRadians(angle)) - (this.state.childNodeProperties.C_DIAM/2),
 			deltaY: this.fly_out_radius * Math.sin(toRadians(angle)) + (this.state.childNodeProperties.C_DIAM/2)
 		};
-	}
-
-	openNodes() {
-		let { nodeOpen } = this.state;
-		this.setState({
-			nodeOpen: !nodeOpen
-		});
 	}
 
 	defaultNodeStyle(M_X, M_Y) {
@@ -180,25 +168,27 @@ export default class NodeComponent extends React.Component {
 	      left: spring(M_X - M_WIDTH/2)
 	    };
 	    
-	    if(!this.loaded) {
-	    	setTimeout(() => {
-	    		this.openNodes();
-	    	}, 500);
-	    	this.loaded = true;
-	    }
-	    let mainButtonStyle = this.state.nodeOpen ? this.visibleMainNodeStyle(M_X, M_Y) : this.defaultMainNodeStyle();
-		const mainClass = "main-button" + (this.state.nodeOpen ? " isActive" : "");
+	    let mainButtonStyle = this.props.mainNodeActive ? this.visibleMainNodeStyle(M_X, M_Y) : this.defaultMainNodeStyle();
+		const mainClass = "main-button" + (this.props.mainNodeActive ? " isActive" : "");
 		return (
 			<div>
 				{(this.props.childNodes ? this.props.childNodes : []).map( (childNode, index) => {
-					let {style, coOrdinates} = this.state.nodeOpen ? this.visibleNodeStyle(index, M_X, M_Y) : this.defaultNodeStyle(M_X, M_Y);
-					const childClass = "child-button transparent-background" + (this.state.nodeOpen ? " isActive" : "");
+					let {style, coOrdinates} = this.props.mainNodeActive ? this.visibleNodeStyle(index, M_X, M_Y) : this.defaultNodeStyle(M_X, M_Y);
+					const childClass = "child-button transparent-background" + (this.props.mainNodeActive ? " isActive" : "");
 					return (
 						<Motion style={style} key={index}>
 							{
 								({width, height, top, left, rotate, x, y}) => (
 									<div className='child-container'>
-										<div	
+										<div
+											onClick={
+												() => {
+													this.props.onMainNodeClicked();
+													this.props.onChildNodeClicked(childNode.props.children);
+													setTimeout(() => this.props.onMainNodeClicked(), 100)
+													
+												}
+											}	
 											className={childClass}
 											style={{
 												top: top,
@@ -231,7 +221,7 @@ export default class NodeComponent extends React.Component {
 								height: height,
 								borderRadius,
 								fontSize
-							}} onClick={this.openNodes}>
+							}} onClick={this.props.onMainNodeClicked.bind(this)}>
 								{this.props.mainNode}
 							</div>
 						)
