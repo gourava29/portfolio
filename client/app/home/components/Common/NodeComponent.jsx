@@ -16,7 +16,7 @@ const mainButtonDimension = {
 };
 
 // Value of 1 degree in radians
-const DEG_TO_RAD = Math.PI/180;
+const DEG_TO_RAD = Math.PI/50;
 
 function toRadians(degrees) {
 	return degrees * DEG_TO_RAD;
@@ -26,7 +26,6 @@ export default class NodeComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.updatePosition = this.updatePosition.bind(this);
     	this.defaultNodeStyle = this.defaultNodeStyle.bind(this);
 		this.visibleNodeStyle = this.visibleNodeStyle.bind(this);
@@ -36,9 +35,9 @@ export default class NodeComponent extends React.Component {
 
 		// The number of child buttons that fly out from the main button
 		const NUM_CHILDREN = props.childNodes ? props.childNodes.length : 0;
-		this.SEPARATION_ANGLE = 180/(NUM_CHILDREN+1); //degrees
+		this.SEPARATION_ANGLE = 50/(NUM_CHILDREN+1); //degrees
 		const FAN_ANGLE = (NUM_CHILDREN - 1) * this.SEPARATION_ANGLE; //degrees
-		this.BASE_ANGLE = ((180 - FAN_ANGLE)/2); // degrees
+		this.BASE_ANGLE = ((50 - FAN_ANGLE)/2); // degrees
 		this.fly_out_radius = 150;
 
 	}
@@ -93,8 +92,8 @@ export default class NodeComponent extends React.Component {
 				top: spring(M_Y - (this.state.childNodeProperties.C_DIAM/2)),
 				left: spring(M_X - (this.state.childNodeProperties.C_DIAM/2)),
 				rotate: spring(0),
-				x: spring(M_X, {stiffness: 123, damping: 18}),
-				y: spring(M_Y, {stiffness: 123, damping: 18}),
+				x: spring(M_X, {stiffness: 120, damping: 11}),
+				y: spring(M_Y, {stiffness: 120, damping: 11}),
 				width: this.state.childNodeProperties.C_DIAM,
 				height: this.state.childNodeProperties.C_DIAM
 			},
@@ -110,11 +109,11 @@ export default class NodeComponent extends React.Component {
 
 		return {
 			style:{
-				left: spring(M_X + deltaX, {stiffness: 123, damping: 18}),
-				top: spring(M_Y - deltaY, {stiffness: 123, damping: 18}),
-				rotate: spring(360, {stiffness: 123, damping: 18}),
-				x: spring(M_X + deltaX + this.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18}),
-				y: spring(M_Y - deltaY + this.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18}),
+				left: spring(M_X + deltaX, {stiffness: 120, damping: 11}),
+				top: spring(M_Y - deltaY, {stiffness: 120, damping: 11}),
+				rotate: spring(360, {stiffness: 120, damping: 11}),
+				x: spring(M_X + deltaX + this.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping: 11}),
+				y: spring(M_Y - deltaY + this.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping: 11}),
 				width: this.state.childNodeProperties.C_DIAM,
 				height: this.state.childNodeProperties.C_DIAM
 			},
@@ -183,10 +182,7 @@ export default class NodeComponent extends React.Component {
 										<div
 											onClick={
 												() => {
-													this.props.onMainNodeClicked();
-													this.props.onChildNodeClicked(childNode.props.children);
-													setTimeout(() => this.props.onMainNodeClicked(), 100)
-													
+													this.props.onChildNodeClicked(this.props.level, childNode.props.children);
 												}
 											}	
 											className={childClass}
@@ -221,13 +217,14 @@ export default class NodeComponent extends React.Component {
 								height: height,
 								borderRadius,
 								fontSize
-							}} onClick={this.props.onMainNodeClicked.bind(this)}>
+							}} onClick={ () => {
+								this.props.onMainNodeClicked(this.props.level, true);
+							}}>
 								{this.props.mainNode}
 							</div>
 						)
 					}
-				}
-					
+				}	
 				</Motion>
 			</div>
 		);

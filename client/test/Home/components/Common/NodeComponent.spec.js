@@ -4,9 +4,14 @@ import {Motion, spring} from 'react-motion';
 import NodeComponent from '../../../../app/home/components/Common/NodeComponent';
 
 describe('NodeComponent', () => {
+	const childNodeSpy = spy();
+	const mainNodeSpy = spy();
 	const props = {
 		mainNode: (<div>Test</div>),
-		childNodes: [ (<div>child1</div>), (<div>child2</div>)]
+		childNodes: [ (<div>child1</div>), (<div>child2</div>)],
+		mainNodeActive: false, 
+		onChildNodeClicked:childNodeSpy,
+		onMainNodeClicked:mainNodeSpy
 	};
 
 	const wrapper = shallow(<NodeComponent {...props}/>);
@@ -15,18 +20,69 @@ describe('NodeComponent', () => {
 	describe('has properties', () => {
 		const errorSpy = spy(console, "error");
 		it('throws error on no mainNode', () => {
-			const nodeComponent = mount(<NodeComponent childNodes={props.childNodes}/>);
+			const noMainNodeProps = {...props, mainNode: undefined}
+			const nodeComponent = mount(<NodeComponent {...noMainNodeProps}/>);
 			expect(errorSpy.calledWithMatch("Warning: Failed prop type: The prop `mainNode` is marked as required in `NodeComponent`")).to.be.true;
 		});
 
 		it('throws error on no childNodes', () => {
-			const nodeComponent = mount(<NodeComponent mainNode={props.mainNode}/>);
+			const noChildNodeProps = {...props, childNodes: undefined}
+			const nodeComponent = mount(<NodeComponent {...noChildNodeProps}/>);
 			expect(errorSpy.calledWithMatch("Warning: Failed prop type: The prop `childNodes` is marked as required in `NodeComponent`")).to.be.true;
 		});
 	});
 
 	it('render', () => {
-		//check child elements
+		// check child elements
+
+		const motionEls = wrapper.find(Motion);
+		const childComponentCount = props.childNodes.length;
+
+		const childContainerComponent = motionEls.findWhere(n => n.dive().hasClass("child-container"));
+		expect(childContainerComponent).to.have.length(childComponentCount);
+
+		childContainerComponent.forEach((childButtonComp, index) => {
+			const {M_X, M_Y} = wrapperInstance.state.mainNodeProperties;
+			expect(childButtonComp.props().style).to.deep.equal(wrapperInstance.defaultNodeStyle(M_X, M_Y).style);
+			expect(childButtonComp.dive().find(".child-button").first().html()).contains(shallow(props.childNodes[index]).html());
+		});
+
+		const mainButtonComponent = motionEls.findWhere(n => n.dive().hasClass("main-button"));
+		expect(mainButtonComponent).to.have.length(1);	
+		
+		const mainComponentStyle = wrapperInstance.defaultMainNodeStyle();
+
+		expect(mainButtonComponent.props().style).to.deep.equal(mainComponentStyle);
+		expect(mainButtonComponent.html()).contains(shallow(props.mainNode).html());
+	});	
+
+	it('when mainNodeActive is true', () => {
+		const mainNodeActiveProps = {...props, mainNodeActive: true};
+		const nodeCompWrapper = shallow(<NodeComponent {...mainNodeActiveProps}/>);
+		const nodeWrapperInstance = nodeCompWrapper.instance();
+		const motionEls = nodeCompWrapper.find(Motion);
+		const childComponentCount = props.childNodes.length;
+
+		const childContainerComponent = motionEls.findWhere(n => n.dive().hasClass("child-container"));
+		expect(childContainerComponent).to.have.length(childComponentCount);
+
+		childContainerComponent.forEach((childButtonComp, index) => {
+			const {M_X, M_Y} = nodeWrapperInstance.state.mainNodeProperties;
+			expect(childButtonComp.props().style).to.deep.equal(nodeWrapperInstance.visibleNodeStyle(index, M_X, M_Y).style);
+			expect(childButtonComp.dive().find(".child-button").first().html()).contains(shallow(props.childNodes[index]).html());
+		});
+
+		const mainButtonComponent = motionEls.findWhere(n => n.dive().hasClass("main-button"));
+		expect(mainButtonComponent).to.have.length(1);	
+		
+		const mainComponentStyle = nodeWrapperInstance.visibleMainNodeStyle();
+
+		expect(mainButtonComponent.props().style).to.deep.equal(mainComponentStyle);
+		expect(mainButtonComponent.html()).contains(shallow(props.mainNode).html());
+	});
+
+	it('render', () => {
+		// check child elements
 
 		const motionEls = wrapper.find(Motion);
 		const childComponentCount = props.childNodes.length;
@@ -41,11 +97,11 @@ describe('NodeComponent', () => {
 		const mainButtonComponent = motionEls.findWhere(n => n.dive().hasClass("main-button"));
 		expect(mainButtonComponent).to.have.length(1);	
 		
-		const mainComponentStyle = wrapperInstance.state.nodeOpen ? wrapperInstance.visibleMainNodeStyle() : wrapperInstance.defaultMainNodeStyle();
+		const mainComponentStyle = wrapperInstance.props.mainNodeActive ? wrapperInstance.visibleMainNodeStyle() : wrapperInstance.defaultMainNodeStyle();
 
 		expect(mainButtonComponent.props().style).to.deep.equal(mainComponentStyle);
 		expect(mainButtonComponent.html()).contains(shallow(props.mainNode).html());
-	});	
+	});
 
 	it('has mainNodeProperties in state', () => {
 		const state = wrapperInstance.state;
@@ -105,12 +161,6 @@ describe('NodeComponent', () => {
 		
 		expect(wrapperInstance.finalDeltaPositions(0)).to.deep.equal(getDeltaPosition(0));
 		expect(wrapperInstance.finalDeltaPositions(1)).to.deep.equal(getDeltaPosition(1));
-	});
-
-	it('openNode', () => {
-		const nodeOpen = wrapperInstance.state.nodeOpen;
-		wrapperInstance.openNodes();
-		expect(wrapperInstance.state.nodeOpen).to.equal(!nodeOpen);
 	});
 
 	it('defaultNodeStyle', () => {
@@ -212,11 +262,10 @@ describe('NodeComponent', () => {
 		});
 	});
 
-	it('calls openNodes on click of child', () => {
-		const openNode = spy(wrapperInstance, "openNodes");
+	it('calls onMainNodeClicked on click of mainButton', () => {
 		const motionEls = wrapper.find(Motion);
 		let mainButtonComponent = motionEls.findWhere(n => n.dive().hasClass("main-button"));
 		mainButtonComponent.dive().find(".main-button").simulate("click");
-		expect(openNode.calledOnce).to.be.true;
+		expect(mainNodeSpy.calledOnce).to.be.true;
 	});
 });

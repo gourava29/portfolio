@@ -2,7 +2,6 @@ const initialState = {
 	mainNodeActive: false
 };
 export const nodeComp = (state = initialState, action) => {
-	console.log(action);
 	switch (action.type) {
 		case 'MAIN_NODE_TOGGLE' :
 			return {

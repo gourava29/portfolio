@@ -18,6 +18,7 @@ mySql = user.skills.create(name: "MySQL")
 node = user.skills.create(name: "NodeJS")
 mongo = user.skills.create(name: "MongoDB")
 neo4J = user.skills.create(name: "Neo4J Graph DB")
+neo4J = user.skills.create(name: "ROR")
 
 spellbound = user.works.create(name: 'Spellbound Information Solutions Pvt. Ltd.')
 doesAnyone = spellbound.projects.create(name: 'DoesAnyone')

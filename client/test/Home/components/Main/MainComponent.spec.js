@@ -2,7 +2,7 @@ import React from 'react';
 
 import Main from '../../../../app/home/components/Main/MainComponent';
 import SocialConnections from '../../../../app/home/components/Main/SocialConnections';
-import NodeComponent from '../../../../app/home/components/Common/NodeComponent';
+import NodeComponent from '../../../../app/home/components/Common/NodeComponentContainer';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 

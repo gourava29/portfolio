@@ -14,10 +14,10 @@ export default class Main extends React.Component {
     return(
       <div className='heading noselect transparent-background'>
         <div className="full-name">
-          {this.props.mainNodeName || this.props.name}
+          {this.props.level > 0 ? this.props.mainNodeName : this.props.name}
         </div>
         <div className="role">
-          {this.props.mainNodeName ? "" : this.props.role}
+          {this.props.level > 0 ? this.props.mainNodeRole : this.props.role}
         </div>
       </div>
     )
@@ -31,7 +31,6 @@ export default class Main extends React.Component {
       let relationshipList;
       for(var key in this.props.relationships){
         if(key === this.props.mainNodeName.toLowerCase()){
-          console.log(this.props.relationships[key]);
           relationshipsList = this.props.relationships[key].map(relationship => relationship.name);
           break;
         }
@@ -41,17 +40,15 @@ export default class Main extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     let childNodes = [];
     const relationshipsList = this.getRelationshipList();
-    console.log(relationshipsList);
     (relationshipsList).forEach(function(item, index) {
       childNodes.push(<div>{item.split(" ")[0].toUpperCase()}</div>);
     });
     
     return (
       <div>
-        <NodeComponent showEdges={false} childNodes={childNodes} onChildNodeClicked={this.props.onChildNodeClicked} mainNode={this.renderMainNode()}/>
+        <NodeComponent showEdges={false} level={this.props.level} childNodes={childNodes} mainNode={this.renderMainNode()}/>
         <SocialConnections connections={this.props.connections}/>
       </div>
     );

@@ -6,11 +6,11 @@ import { MAIN_NODE_TOGGLE, CHILD_NODE_TOGGLE } from '../../actions/NodeComponent
 const mapStateToProps = (state) => ({...state.nodeComp});
 
 const mapDispatchToProps = (dispatch) => ({
-	onChildNodeClicked: (name) => {
-		dispatch(CHILD_NODE_TOGGLE(name));
+	onChildNodeClicked: (level, name) => {
+		dispatch(CHILD_NODE_TOGGLE(level, name));
 	},
-	onMainNodeClicked: () => {
-		dispatch(MAIN_NODE_TOGGLE());
+	onMainNodeClicked: (level, isDirect) => {
+		dispatch(MAIN_NODE_TOGGLE(level, isDirect));
 	}
 });
 
