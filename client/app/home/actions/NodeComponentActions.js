@@ -31,7 +31,8 @@ export const MAIN_NODE_TOGGLE = (level, isDirect) => {
 						const response = [
 							mainToChildDispatch,
 							dispatch({
-								type: "MAIN_NODE_TOGGLE"
+								type: "MAIN_NODE_TOGGLE",
+								isDirect: !!isDirect
 							})
 						];
 						resolve(response);
