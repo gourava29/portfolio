@@ -1,10 +1,14 @@
 namespace :dhobypachad do
   desc 'run NPM tests'
   task :test_js do
-    puts `npm test`
+  	unless system 'npm test'
+        exit
+  	end
   end
   task :test_rspec do
-    puts `rspec`
+    unless system 'rspec'
+        exit
+  	end
   end
    
 end
