@@ -4,6 +4,14 @@ import {Motion, spring} from 'react-motion';
 import NodeComponent from '../../../../app/home/components/Common/NodeComponent';
 
 describe('NodeComponent', () => {
+
+	// Value of 1 degree in radians
+	const DEG_TO_RAD = Math.PI/50;
+
+	function toRadians(degrees) {
+		return degrees * DEG_TO_RAD;
+	}
+
 	const childNodeSpy = spy();
 	const mainNodeSpy = spy();
 	const props = {
@@ -154,8 +162,8 @@ describe('NodeComponent', () => {
 	it('finalDeltaPositions', () => {
 		const getDeltaPosition = (index) => {
 			const angle = wrapperInstance.BASE_ANGLE + ( index * wrapperInstance.SEPARATION_ANGLE );
-			const deltaX = wrapperInstance.fly_out_radius * Math.cos(angle*Math.PI/180) - (wrapperInstance.state.childNodeProperties.C_DIAM/2);
-			const deltaY = wrapperInstance.fly_out_radius * Math.sin(angle*Math.PI/180) + (wrapperInstance.state.childNodeProperties.C_DIAM/2);
+			const deltaX = wrapperInstance.fly_out_radius * Math.cos(toRadians(angle)) - (wrapperInstance.state.childNodeProperties.C_DIAM/2);
+			const deltaY = wrapperInstance.fly_out_radius * Math.sin(toRadians(angle)) + (wrapperInstance.state.childNodeProperties.C_DIAM/2);
 			return {deltaX, deltaY};
 		}
 		
@@ -172,8 +180,8 @@ describe('NodeComponent', () => {
 				top: spring(M_Y - (wrapperInstance.state.childNodeProperties.C_DIAM/2)),
 				left: spring(M_X - (wrapperInstance.state.childNodeProperties.C_DIAM/2)),
 				rotate: spring(0),
-				x: spring(M_X, {stiffness: 123, damping: 18}),
-				y: spring(M_Y, {stiffness: 123, damping: 18}),
+				x: spring(M_X, {stiffness: 120, damping: 11}),
+				y: spring(M_Y, {stiffness: 120, damping: 11}),
 				height: 70,
 				width: 70
 			},
@@ -193,11 +201,11 @@ describe('NodeComponent', () => {
 		stub(wrapperInstance, 'finalDeltaPositions').callsFake(() => ({deltaX, deltaY}))
 		const expectedResult = {
 			style:{
-				left: spring(M_X + deltaX, {stiffness: 123, damping: 18}),
-				top: spring(M_Y - deltaY, {stiffness: 123, damping: 18}),
-				rotate: spring(360, {stiffness: 123, damping: 18}),
-				x: spring(M_X  + deltaX + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18}),
-				y: spring(M_Y - deltaY + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18}),
+				left: spring(M_X + deltaX, {stiffness: 120, damping: 11}),
+				top: spring(M_Y - deltaY, {stiffness: 120, damping: 11}),
+				rotate: spring(360, {stiffness: 120, damping: 11}),
+				x: spring(M_X  + deltaX + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping: 11}),
+				y: spring(M_Y - deltaY + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping: 11}),
 				height: 70,
 				width: 70
 			},

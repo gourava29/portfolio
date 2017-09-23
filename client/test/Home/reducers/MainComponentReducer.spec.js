@@ -20,12 +20,12 @@ describe('MainComponentReducer', () => {
 
   	it('should handle MAIN_TO_CHILD_NODE_TRANSITION', () => {
   		const name = "Me"
-	  	expect(main(undefined, {
+  		const currentLevel = 1;
+	  	expect(main({level: currentLevel}, {
 	  		type: 'MAIN_TO_CHILD_NODE_TRANSITION',
 			name
 		})).to.deep.equal({
-	  	    level: level - 1,
-	        mainNodeName: name
+	  	    level: currentLevel - 1
 	  	});
   	});
 });
