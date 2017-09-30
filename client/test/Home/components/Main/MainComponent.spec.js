@@ -13,7 +13,16 @@ describe('MainComponent', () => {
     connections: [
       {name: 'Link1', link: 'https://www.link1.com', 'iconClass':'fa-quora'},
       {name: 'Link2', link: 'https://www.link2.com', img: 'link2.png'}
-    ]
+    ],
+    relationships: {
+      child1 : [
+        {name: 'sub-child1'}
+      ],
+      child2 : [
+        {name: 'sub-child2'}
+      ]
+    },
+    mainNodeName: "Test Title"
   };
   const wrapper = shallow(<Main {...props}/>);
   

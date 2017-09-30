@@ -1,6 +1,7 @@
 import React from 'react';
 import SocialConnections from './SocialConnections';
 import NodeComponent from '../Common/NodeComponentContainer';
+import SkillComponent from './SkillComponent';
 
 const emptyObject = {};
 export default class Main extends React.Component {
@@ -31,7 +32,7 @@ export default class Main extends React.Component {
       let relationshipList;
       for(var key in this.props.relationships){
         if(key === this.props.mainNodeName.toLowerCase()){
-          relationshipsList = this.props.relationships[key].map(relationship => relationship.name);
+          relationshipsList = this.props.relationships[key];
           break;
         }
       }
@@ -42,8 +43,14 @@ export default class Main extends React.Component {
   render() {
     let childNodes = [];
     const relationshipsList = this.getRelationshipList();
+    const { mainNodeName, level } = this.props;
     (relationshipsList).forEach(function(item, index) {
-      childNodes.push(<div>{item.split(" ")[0].toUpperCase()}</div>);
+      if(mainNodeName === 'SKILLS' && level > 0)
+        childNodes.push(
+          <SkillComponent {...item}/>
+        );
+      else
+        childNodes.push(<div title={item.toUpperCase()}>{item.split(" ")[0].toUpperCase()}</div>);
     });
     
     return (

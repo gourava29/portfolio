@@ -4,8 +4,8 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = User.find(params[:id])
-        render :json => @user.to_relationship_format
+		@user = User.includes(:connections).find(params[:id])
+		render :json => @user.to_relationship_format([:connections])
 	end
 end
 

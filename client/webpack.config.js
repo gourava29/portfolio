@@ -114,11 +114,11 @@ const config = {
         use: "url-loader"
       },
       {
-        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+        test: /\.(ttf|eot)(\?[\s\S]+)?$/,
         use: 'file-loader'
       },
       { 
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|svg)$/,
         loader: 'url-loader' 
       }
     ],

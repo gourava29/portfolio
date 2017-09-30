@@ -7,6 +7,7 @@ describe('NodeComponent', () => {
 
 	// Value of 1 degree in radians
 	const DEG_TO_RAD = Math.PI/50;
+	const damping = 18;
 
 	function toRadians(degrees) {
 		return degrees * DEG_TO_RAD;
@@ -180,8 +181,8 @@ describe('NodeComponent', () => {
 				top: spring(M_Y - (wrapperInstance.state.childNodeProperties.C_DIAM/2)),
 				left: spring(M_X - (wrapperInstance.state.childNodeProperties.C_DIAM/2)),
 				rotate: spring(0),
-				x: spring(M_X, {stiffness: 120, damping: 11}),
-				y: spring(M_Y, {stiffness: 120, damping: 11}),
+				x: spring(M_X, {stiffness: 120, damping}),
+				y: spring(M_Y, {stiffness: 120, damping}),
 				height: 70,
 				width: 70
 			},
@@ -201,11 +202,11 @@ describe('NodeComponent', () => {
 		stub(wrapperInstance, 'finalDeltaPositions').callsFake(() => ({deltaX, deltaY}))
 		const expectedResult = {
 			style:{
-				left: spring(M_X + deltaX, {stiffness: 120, damping: 11}),
-				top: spring(M_Y - deltaY, {stiffness: 120, damping: 11}),
-				rotate: spring(360, {stiffness: 120, damping: 11}),
-				x: spring(M_X  + deltaX + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping: 11}),
-				y: spring(M_Y - deltaY + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping: 11}),
+				left: spring(M_X + deltaX, {stiffness: 120, damping}),
+				top: spring(M_Y - deltaY, {stiffness: 120, damping}),
+				rotate: spring(360, {stiffness: 120, damping}),
+				x: spring(M_X  + deltaX + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping}),
+				y: spring(M_Y - deltaY + wrapperInstance.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping}),
 				height: 70,
 				width: 70
 			},

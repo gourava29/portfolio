@@ -1,2 +1,2 @@
-<%= react_component("Home", props:User.find(1).to_relationship_format, prerender: false) %>
+<%= react_component("Home", props:User.find(1).to_relationship_format([:connections]), prerender: false) %>
 

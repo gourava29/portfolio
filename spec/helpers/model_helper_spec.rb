@@ -31,7 +31,7 @@ RSpec.describe ModelHelper, type: :module do
 			@@children
 		end
 
-		def as_json
+		def as_json(include = [])
 			{name: "Parent1"}
 		end
 	end
@@ -49,6 +49,14 @@ RSpec.describe ModelHelper, type: :module do
 		
 		expect(@test.respond_to?(:to_relationship_format)).to be true
 		expect(@test.to_relationship_format).to eq(expectedResponse)
+	end
+
+	it "respond to to_relationship_format with excluded childrens" do
+		expectedResponse = @test.as_json
+		expectedResponse["relationships"] = {}
+		
+		expect(@test.respond_to?(:to_relationship_format)).to be true
+		expect(@test.to_relationship_format([@childClass.name])).to eq(expectedResponse)
 	end
 
 end

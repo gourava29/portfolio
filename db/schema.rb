@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820023653) do
+ActiveRecord::Schema.define(version: 20170930023627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "connections", force: :cascade do |t|
+    t.string "name"
+    t.string "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_connections_on_user_id"
+  end
 
   create_table "hobbies", force: :cascade do |t|
     t.string "name"
@@ -47,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170820023653) do
 
   create_table "skills", force: :cascade do |t|
     t.string "name"
+    t.string "efficiency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
@@ -68,6 +78,7 @@ ActiveRecord::Schema.define(version: 20170820023653) do
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 
+  add_foreign_key "connections", "users"
   add_foreign_key "hobbies", "users"
   add_foreign_key "projects", "works"
   add_foreign_key "relationships", "users"

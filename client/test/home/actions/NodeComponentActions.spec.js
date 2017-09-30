@@ -49,6 +49,7 @@ describe("NodeComponentActions", () => {
 		it("when direct is true and level 1", () => {
 			return store.dispatch(actions.MAIN_NODE_TOGGLE(1, true)).then(dispatchedAction => {
 				expect(dispatchedAction).to.deep.equal([
+					{ type: 'MAIN_NODE_TOGGLE', isDirect: true },
 					MAIN_TO_CHILD_NODE_TRANSITION(),
 					{ type: 'MAIN_NODE_TOGGLE', isDirect: true }
 				]);

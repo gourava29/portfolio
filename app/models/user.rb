@@ -7,4 +7,5 @@ class User < ApplicationRecord
 	has_many :works
 	has_many :skills
 	has_many :hobbies
+	has_many :connections
 end

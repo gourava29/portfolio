@@ -1,5 +1,11 @@
 # This will guess the User class
 FactoryGirl.define do
+  
+  factory :connection do
+    name "MyString"
+    link "MyString"
+  end
+
   factory :project do
     name "MyString"
   end
