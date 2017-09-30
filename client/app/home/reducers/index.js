@@ -1,12 +1,9 @@
 
-const reducer = (state, action) => {
-	switch(action.type) {
-		case "onChildNodeClicked": 
-			console.log(action);
-			return state;
-		default:
-			return state;
-	}
-}
+import { combineReducers } from 'redux';
+import { main } from './MainComponentReducer';
+import { nodeComp } from './NodeComponentReducer';
 
-export default reducer;
+const combinedReducer = combineReducers({
+	main, nodeComp
+});
+export default combinedReducer;

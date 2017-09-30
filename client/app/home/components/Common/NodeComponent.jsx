@@ -16,8 +16,8 @@ const mainButtonDimension = {
 };
 
 // Value of 1 degree in radians
-const DEG_TO_RAD = Math.PI/180;
-
+const DEG_TO_RAD = Math.PI/50;
+const damping = 18;
 function toRadians(degrees) {
 	return degrees * DEG_TO_RAD;
 }
@@ -26,13 +26,8 @@ export default class NodeComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			nodeOpen: true
-		};
-
 		this.updatePosition = this.updatePosition.bind(this);
-    	this.openNodes = this.openNodes.bind(this);
-		this.defaultNodeStyle = this.defaultNodeStyle.bind(this);
+    	this.defaultNodeStyle = this.defaultNodeStyle.bind(this);
 		this.visibleNodeStyle = this.visibleNodeStyle.bind(this);
 		this.defaultMainNodeStyle = this.defaultMainNodeStyle.bind(this);
 		this.visibleMainNodeStyle = this.visibleMainNodeStyle.bind(this);
@@ -40,10 +35,9 @@ export default class NodeComponent extends React.Component {
 
 		// The number of child buttons that fly out from the main button
 		const NUM_CHILDREN = props.childNodes ? props.childNodes.length : 0;
-		this.SEPARATION_ANGLE = 180/(NUM_CHILDREN+1); //degrees
+		this.SEPARATION_ANGLE = 50/(NUM_CHILDREN+1); //degrees
 		const FAN_ANGLE = (NUM_CHILDREN - 1) * this.SEPARATION_ANGLE; //degrees
-		this.BASE_ANGLE = ((180 - FAN_ANGLE)/2); // degrees
-		this.loaded = false;
+		this.BASE_ANGLE = ((50 - FAN_ANGLE)/2); // degrees
 		this.fly_out_radius = 150;
 
 	}
@@ -92,21 +86,14 @@ export default class NodeComponent extends React.Component {
 		};
 	}
 
-	openNodes() {
-		let { nodeOpen } = this.state;
-		this.setState({
-			nodeOpen: !nodeOpen
-		});
-	}
-
 	defaultNodeStyle(M_X, M_Y) {
 		return { 
 			style: {
 				top: spring(M_Y - (this.state.childNodeProperties.C_DIAM/2)),
 				left: spring(M_X - (this.state.childNodeProperties.C_DIAM/2)),
 				rotate: spring(0),
-				x: spring(M_X, {stiffness: 123, damping: 18}),
-				y: spring(M_Y, {stiffness: 123, damping: 18}),
+				x: spring(M_X, {stiffness: 120, damping}),
+				y: spring(M_Y, {stiffness: 120, damping}),
 				width: this.state.childNodeProperties.C_DIAM,
 				height: this.state.childNodeProperties.C_DIAM
 			},
@@ -122,11 +109,11 @@ export default class NodeComponent extends React.Component {
 
 		return {
 			style:{
-				left: spring(M_X + deltaX, {stiffness: 123, damping: 18}),
-				top: spring(M_Y - deltaY, {stiffness: 123, damping: 18}),
-				rotate: spring(360, {stiffness: 123, damping: 18}),
-				x: spring(M_X + deltaX + this.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18}),
-				y: spring(M_Y - deltaY + this.state.childNodeProperties.C_DIAM/2, {stiffness: 123, damping: 18}),
+				left: spring(M_X + deltaX, {stiffness: 120, damping}),
+				top: spring(M_Y - deltaY, {stiffness: 120, damping}),
+				rotate: spring(360, {stiffness: 120, damping}),
+				x: spring(M_X + deltaX + this.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping}),
+				y: spring(M_Y - deltaY + this.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping}),
 				width: this.state.childNodeProperties.C_DIAM,
 				height: this.state.childNodeProperties.C_DIAM
 			},
@@ -180,25 +167,24 @@ export default class NodeComponent extends React.Component {
 	      left: spring(M_X - M_WIDTH/2)
 	    };
 	    
-	    if(!this.loaded) {
-	    	setTimeout(() => {
-	    		this.openNodes();
-	    	}, 500);
-	    	this.loaded = true;
-	    }
-	    let mainButtonStyle = this.state.nodeOpen ? this.visibleMainNodeStyle(M_X, M_Y) : this.defaultMainNodeStyle();
-		const mainClass = "main-button" + (this.state.nodeOpen ? " isActive" : "");
+	    let mainButtonStyle = this.props.mainNodeActive ? this.visibleMainNodeStyle(M_X, M_Y) : this.defaultMainNodeStyle();
+		const mainClass = "main-button" + (this.props.mainNodeActive ? " isActive" : "");
 		return (
 			<div>
 				{(this.props.childNodes ? this.props.childNodes : []).map( (childNode, index) => {
-					let {style, coOrdinates} = this.state.nodeOpen ? this.visibleNodeStyle(index, M_X, M_Y) : this.defaultNodeStyle(M_X, M_Y);
-					const childClass = "child-button transparent-background" + (this.state.nodeOpen ? " isActive" : "");
+					let {style, coOrdinates} = this.props.mainNodeActive ? this.visibleNodeStyle(index, M_X, M_Y) : this.defaultNodeStyle(M_X, M_Y);
+					const childClass = "child-button transparent-background" + (this.props.mainNodeActive ? " isActive" : "");
 					return (
 						<Motion style={style} key={index}>
 							{
 								({width, height, top, left, rotate, x, y}) => (
 									<div className='child-container'>
-										<div	
+										<div
+											onClick={
+												() => {
+													this.props.onChildNodeClicked(this.props.level, childNode.props.children);
+												}
+											}	
 											className={childClass}
 											style={{
 												top: top,
@@ -231,13 +217,14 @@ export default class NodeComponent extends React.Component {
 								height: height,
 								borderRadius,
 								fontSize
-							}} onClick={this.openNodes}>
+							}} onClick={ () => {
+								this.props.onMainNodeClicked(this.props.level, true);
+							}}>
 								{this.props.mainNode}
 							</div>
 						)
 					}
-				}
-					
+				}	
 				</Motion>
 			</div>
 		);

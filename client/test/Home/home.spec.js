@@ -18,9 +18,11 @@ describe('Home', () => {
 
   it('renders Provider with store default state as props of home', () => {
     const provider = wrapper.find(Provider);
-    const store = configureStore(props);
-
-    expect(provider.props().store.getState()).to.deep.eq(store.getState());
+    const store = configureStore({main:{...props}});
+    
+    const storeState = store.getState();
+    const defaultState = {...storeState, main:{...storeState.main, level:0}};
+    expect(provider.props().store.getState()).to.deep.eq(defaultState);
     expect(provider).to.have.length(1);
   });
 
