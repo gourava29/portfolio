@@ -1,0 +1,46 @@
+.skill-icon {
+	display: block;
+	width: 100%;
+	height: 30px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-top: 14px;
+	@include breakpoint(medium up){
+		height: 40px;
+	}
+}
+
+.angular-icon {
+	background-image: url("../images/skills/angular.svg");
+}
+.java-icon {
+	background-image: url("../images/skills/java.svg");
+}
+.react-icon {
+	background-image: url("../images/skills/react.svg");
+}
+.html-icon {
+	background-image: url("../images/skills/html.svg");
+}
+.css-icon {
+	background-image: url("../images/skills/css.svg");
+}
+.ror-icon {
+	background-image: url("../images/skills/ror.svg");
+}
+.nodejs-icon {
+	background-image: url("../images/skills/nodejs.svg");
+}
+.mongodb-icon {
+	background-image: url("../images/skills/mongodb.svg");
+}
+.mysql-icon {
+	background-image: url("../images/skills/mysql.svg");
+}
+.neo4j-icon {
+	background-image: url("../images/skills/neo4j.svg");
+}
+.javascript-icon {
+	background-image: url("../images/skills/javascript.svg");
+}
