@@ -49,8 +49,11 @@ export default class Main extends React.Component {
         childNodes.push(
           <SkillComponent {...item}/>
         );
-      else
-        childNodes.push(<div title={item.toUpperCase()}>{item.split(" ")[0].toUpperCase()}</div>);
+      else{
+        const itemName = level > 0 ? item.name : item;
+        childNodes.push(<div title={itemName.toUpperCase()}>{itemName.split(" ")[0].toUpperCase()}</div>);
+      }
+        
     });
     
     return (
