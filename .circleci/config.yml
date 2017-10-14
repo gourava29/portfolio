@@ -52,8 +52,3 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: limitless-hollows-30532
