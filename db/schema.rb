@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930023627) do
+ActiveRecord::Schema.define(version: 20171011140152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 20170930023627) do
     t.bigint "skill_id", null: false
   end
 
+  create_table "projects_technologies", id: false, force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "technology_id", null: false
+    t.index ["project_id", "technology_id"], name: "index_projects_technologies_on_project_id_and_technology_id"
+    t.index ["technology_id", "project_id"], name: "index_projects_technologies_on_technology_id_and_project_id"
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -56,11 +63,19 @@ ActiveRecord::Schema.define(version: 20170930023627) do
 
   create_table "skills", force: :cascade do |t|
     t.string "name"
-    t.string "efficiency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_skills_on_user_id"
+  end
+
+  create_table "technologies", force: :cascade do |t|
+    t.string "name"
+    t.integer "efficiency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "skill_id"
+    t.index ["skill_id"], name: "index_technologies_on_skill_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -84,5 +99,6 @@ ActiveRecord::Schema.define(version: 20170930023627) do
   add_foreign_key "relationships", "users"
   add_foreign_key "relationships", "works"
   add_foreign_key "skills", "users"
+  add_foreign_key "technologies", "skills"
   add_foreign_key "works", "users"
 end

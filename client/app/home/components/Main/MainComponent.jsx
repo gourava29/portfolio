@@ -9,13 +9,16 @@ export default class Main extends React.Component {
     super(props);
     this.renderMainNode = this.renderMainNode.bind(this);
     this.getRelationshipList = this.getRelationshipList.bind(this);
+    this.getChildren = this.getChildren.bind(this);
+    this.getComp = this.getComp.bind(this);
+    this.getParentComp = this.getParentComp.bind(this);
   }
 
-  renderMainNode() {
+  renderMainNode(currentComp) {
     return(
-      <div className='heading noselect transparent-background'>
+      <div name={currentComp.name} className='heading noselect transparent-background'>
         <div className="full-name">
-          {this.props.level > 0 ? this.props.mainNodeName : this.props.name}
+          {currentComp.name}
         </div>
         <div className="role">
           {this.props.level > 0 ? this.props.mainNodeRole : this.props.role}
@@ -23,42 +26,68 @@ export default class Main extends React.Component {
       </div>
     )
   }
+  
+  getChildren(relationships = []) {
+    return relationships.map(rel => {
+      return rel;
+    });
+  }
 
-  getRelationshipList() {
-    let relationshipsList = [];
-    if(this.props.level == 0)
-      relationshipsList  = Object.keys(this.props.relationships);
-    else{
-      let relationshipList;
-      for(var key in this.props.relationships){
-        if(key === this.props.mainNodeName.toLowerCase()){
-          relationshipsList = this.props.relationships[key];
+  getRelationshipList(currentComp) {
+    return this.getChildren(currentComp.relationships);
+  }
+  
+  getComp(name, data) {
+    let comp = null;
+    if(name == data.name.toLowerCase()) {
+      comp = data;
+    } else {
+      for(var key in data.relationships){
+        const relData = data.relationships[key];
+        comp = this.getComp(name, relData);
+        if(comp != null)
           break;
-        }
       }
     }
-    return relationshipsList;
+    return comp;
+  }
+  
+  getParentComp(childName, data, parentData) {
+    let comp = null;
+    if(childName === data.name.toLowerCase()) 
+      comp = parentData;
+    else {
+      for(var key in data.relationships) {
+        const relData = data.relationships[key];
+        comp = this.getParentComp(childName, relData, data);
+        if(comp != null)
+          break;
+      }
+    }
+    return comp;
   }
 
   render() {
     let childNodes = [];
-    const relationshipsList = this.getRelationshipList();
-    const { mainNodeName, level } = this.props;
+    const nodeName = (this.props.mainNodeName || this.props.name).toLowerCase();
+    const currentComp = this.props.childToMain ? this.getComp(nodeName, this.props) : this.getParentComp(nodeName, this.props, this.props);
+    const relationshipsList = this.getRelationshipList(currentComp);
+    const mainNode = this.renderMainNode(currentComp);
+    const { mainNodeName, level , name, childToMain} = this.props;
     (relationshipsList).forEach(function(item, index) {
-      if(mainNodeName === 'SKILLS' && level > 0)
+      if(['ui','db','backend','devop'].indexOf((mainNodeName || name).toLowerCase()) > -1 && level > 1)
         childNodes.push(
           <SkillComponent {...item}/>
         );
       else{
-        const itemName = level > 0 ? item.name : item;
+        const itemName = item.name;
         childNodes.push(<div title={itemName.toUpperCase()}>{itemName.split(" ")[0].toUpperCase()}</div>);
       }
-        
     });
     
     return (
       <div>
-        <NodeComponent showEdges={false} level={this.props.level} childNodes={childNodes} mainNode={this.renderMainNode()}/>
+        <NodeComponent showEdges={false} level={this.props.level} childNodes={childNodes} mainNode={mainNode}/>
         <SocialConnections connections={this.props.connections}/>
       </div>
     );

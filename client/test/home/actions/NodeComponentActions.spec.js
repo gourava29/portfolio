@@ -13,7 +13,8 @@ describe("NodeComponentActions", () => {
 	describe("CHILD_NODE_TOGGLE", () => {
 		it("when level is greater than or equal to 1", () => {
 			const nodeName = "Test";
-			return store.dispatch(actions.CHILD_NODE_TOGGLE(1, nodeName)).then((dispatchedAction) => {
+			return store.dispatch(actions.CHILD_NODE_TOGGLE(2, nodeName)).then((dispatchedAction) => {
+				console.log(dispatchedAction);
 				expect(dispatchedAction).to.deep.equal(CHILD_TO_MAIN_NODE_TRANSITION(nodeName));	
 			});
 		});
@@ -22,8 +23,8 @@ describe("NodeComponentActions", () => {
 			const nodeName = "Test";
 			return store.dispatch(actions.CHILD_NODE_TOGGLE(0, nodeName)).then((dispatchedAction) => {
 				expect(dispatchedAction).to.deep.equal([
-					{ type: 'MAIN_NODE_TOGGLE', isDirect: false },
-  					{ type: 'MAIN_NODE_TOGGLE', isDirect: false }
+					{ type: 'MAIN_NODE_TOGGLE'},
+  					{ type: 'MAIN_NODE_TOGGLE'}
 				]);	
 			});
 		});
@@ -34,24 +35,27 @@ describe("NodeComponentActions", () => {
 		it("when direct is false", () => {
 			return store.dispatch(actions.MAIN_NODE_TOGGLE()).then(dispatchedAction => {
 				expect(dispatchedAction).to.deep.equal({
-					type: "MAIN_NODE_TOGGLE",
-					isDirect: false
+					type: "MAIN_NODE_TOGGLE"
 				});
 			});
 		});
 
 		it("when direct is true and level 0", () => {
-			return store.dispatch(actions.MAIN_NODE_TOGGLE(0, true)).then(dispatchedAction => {
-				expect(dispatchedAction).to.deep.equal(MAIN_TO_CHILD_NODE_TRANSITION());
+			const name = "Test";
+			return store.dispatch(actions.MAIN_NODE_TOGGLE(0, name, true)).then(dispatchedAction => {
+				expect(dispatchedAction).to.deep.equal({
+					type: "MAIN_NODE_TOGGLE"
+				});
 			});
 		});
 
 		it("when direct is true and level 1", () => {
-			return store.dispatch(actions.MAIN_NODE_TOGGLE(1, true)).then(dispatchedAction => {
+			const name = "Test";
+			return store.dispatch(actions.MAIN_NODE_TOGGLE(1, name, true)).then(dispatchedAction => {
 				expect(dispatchedAction).to.deep.equal([
-					{ type: 'MAIN_NODE_TOGGLE', isDirect: true },
-					MAIN_TO_CHILD_NODE_TRANSITION(),
-					{ type: 'MAIN_NODE_TOGGLE', isDirect: true }
+					{ type: 'MAIN_NODE_TOGGLE'},
+					MAIN_TO_CHILD_NODE_TRANSITION(name),
+					{ type: 'MAIN_NODE_TOGGLE'}
 				]);
 			})
 		});

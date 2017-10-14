@@ -12,19 +12,22 @@ describe('NodeComponent', () => {
 	function toRadians(degrees) {
 		return degrees * DEG_TO_RAD;
 	}
-
-	const childNodeSpy = spy();
-	const mainNodeSpy = spy();
-	const props = {
-		mainNode: (<div>Test</div>),
-		childNodes: [ (<div>child1</div>), (<div>child2</div>)],
-		mainNodeActive: false, 
-		onChildNodeClicked:childNodeSpy,
-		onMainNodeClicked:mainNodeSpy
-	};
-
-	const wrapper = shallow(<NodeComponent {...props}/>);
-	const wrapperInstance = wrapper.instance();
+	let childNodeSpy, mainNodeSpy, props, wrapper, wrapperInstance;
+	
+	before(() => {
+		childNodeSpy = spy();
+		mainNodeSpy = spy();
+		props = {
+			mainNode: (<div>Test</div>),
+			childNodes: [ (<div>child1</div>), (<div>child2</div>)],
+			mainNodeActive: false, 
+			onChildNodeClicked:childNodeSpy,
+			onMainNodeClicked:mainNodeSpy
+		};
+	
+		wrapper = shallow(<NodeComponent {...props}/>);
+		wrapperInstance = wrapper.instance();
+	});
 
 	describe('has properties', () => {
 		const errorSpy = spy(console, "error");

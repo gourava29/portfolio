@@ -28,6 +28,10 @@ RSpec.describe Skill, type: :model do
   it "belongs_to User" do
   	expect(Skill.reflect_on_association(:user).macro).to eq (:belongs_to)
   end
+  
+  it "has_many technologies" do
+  	expect(Skill.reflect_on_association(:technologies).macro).to eq (:has_many)
+  end
 
   it "responds to to_relationship_format" do
     skill = build(:skill)

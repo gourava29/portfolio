@@ -28,6 +28,10 @@ RSpec.describe Project, type: :model do
 	it "belongs_to User" do
 	  	expect(Project.reflect_on_association(:work).macro).to eq (:belongs_to)
 	end
+	
+	it "has_and_belongs_to_many technologies" do
+	  	expect(Project.reflect_on_association(:technologies).macro).to eq (:has_and_belongs_to_many)
+	end
 
 	it "responds to to_relationship_format" do
 		project = build(:project)

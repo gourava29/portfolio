@@ -26,8 +26,9 @@
 
 default: &default
   adapter: postgresql
-  username:
-  password:
+  username: ubuntu
+  password: ubuntu
+  template: template0
   host: localhost
 
 development:

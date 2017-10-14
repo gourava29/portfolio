@@ -7,10 +7,15 @@ import configureStore from '../../app/home/store';
 
 describe('Home', () => {
   const props = {
-    name: "Gourav"
+    name: "Gourav",
+    childToMain: false
   };
-
-  const wrapper = shallow(<Home {...props}/>);
+  
+  let wrapper;
+  
+  before(() => {
+    wrapper = shallow(<Home {...props}/>);
+  });
 
   it('renders home', () => {
   	expect(wrapper).to.have.length(1);

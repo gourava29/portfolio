@@ -9,8 +9,8 @@ const mapDispatchToProps = (dispatch) => ({
 	onChildNodeClicked: (level, name) => {
 		dispatch(CHILD_NODE_TOGGLE(level, name));
 	},
-	onMainNodeClicked: (level, isDirect) => {
-		dispatch(MAIN_NODE_TOGGLE(level, isDirect));
+	onMainNodeClicked: (level, name, isDirect) => {
+		dispatch(MAIN_NODE_TOGGLE(level, name, isDirect));
 	}
 });
 

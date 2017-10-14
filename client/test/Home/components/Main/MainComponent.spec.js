@@ -7,27 +7,36 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 describe('MainComponent', () => {
-  const props = {
-    name: "Test title",
-    role: 'Web Developer',
-    connections: [
-      {name: 'Link1', link: 'https://www.link1.com', 'iconClass':'fa-quora'},
-      {name: 'Link2', link: 'https://www.link2.com', img: 'link2.png'}
-    ],
-    relationships: {
-      child1 : [
-        {name: 'sub-child1'}
+  let props, wrapper;
+  
+  before(() => {
+    props = {
+      name: "Test title",
+      role: 'Web Developer',
+      connections: [
+        {name: 'Link1', link: 'https://www.link1.com', 'iconClass':'fa-quora'},
+        {name: 'Link2', link: 'https://www.link2.com', img: 'link2.png'}
       ],
-      child2 : [
-        {name: 'sub-child2'}
-      ]
-    },
-    mainNodeName: "Test Title"
-  };
-  const wrapper = shallow(<Main {...props}/>);
+      relationships: [
+        {
+          name: "child1",
+          relationships: [{name: 'sub-child1'}]
+        },
+        {
+          name: "child2",
+          relationships: [{name: 'sub-child2'}]
+        }
+      ],
+      mainNodeName: "Test Title"
+    };
+    wrapper = shallow(<Main {...props}/>);
+  });
   
   describe('NodeComponent', () => {
-    const nodeComponent = wrapper.find(NodeComponent);
+    let nodeComponent;
+    before(() => {
+      nodeComponent = wrapper.find(NodeComponent);
+    });
     
     it('has nodeComponent', () => {
       expect(nodeComponent).to.have.length(1);
@@ -49,9 +58,12 @@ describe('MainComponent', () => {
     });
 
     describe("renders mainNode", () => {    
-      const mainComponentInstance = wrapper.instance();
-      const mainNode = mount(mainComponentInstance.renderMainNode());
-
+      let mainComponentInstance, mainNode;
+      before(() => {
+        mainComponentInstance = wrapper.instance();
+        mainNode = mount(mainComponentInstance.renderMainNode(props));
+      });
+      
       it('has classes', () => {
         expect(mainNode.hasClass("heading")).to.be.true;
         expect(mainNode.hasClass("noselect")).to.be.true;
@@ -78,5 +90,21 @@ describe('MainComponent', () => {
     const socialConnection = wrapper.find(SocialConnections);
     expect(socialConnection).to.have.length(1);
     expect(socialConnection.props().connections).to.equal(props.connections);
+  });
+  
+  it('getRelationshipList', () => {
+    expect(wrapper.instance().getRelationshipList(props)).to.deep.equal(props.relationships);
+  });
+  
+  it('getComp', () => {
+    const expectedResponse = {
+      name: "child1",
+      relationships: [{name: 'sub-child1'}]
+    };
+    expect(wrapper.instance().getComp("child1", props)).to.deep.equal(expectedResponse);
+  });
+  
+  it('getParentComp', () => {
+    expect(wrapper.instance().getParentComp("child1", props, props)).to.deep.equal(props);
   });
 });
