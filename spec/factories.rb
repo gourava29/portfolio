@@ -1,5 +1,9 @@
 # This will guess the User class
 FactoryGirl.define do
+  factory :technology do
+    name "ROR"
+    efficiency 1
+  end
   
   factory :connection do
     name "MyString"
@@ -16,7 +20,7 @@ FactoryGirl.define do
   end
 
   factory :skill do
-    name "ROR"
+    name "UI"
   end
 
   factory :hobby do

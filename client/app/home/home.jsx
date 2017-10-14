@@ -11,7 +11,7 @@ export default class Home extends React.Component {
 
   render() {
     const store = configureStore({
-      main: {...this.props, level: 0}
+      main: {...this.props, level: 0, childToMain: false}
     });
 
     return (

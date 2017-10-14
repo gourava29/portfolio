@@ -32,16 +32,20 @@ export default class NodeComponent extends React.Component {
 		this.defaultMainNodeStyle = this.defaultMainNodeStyle.bind(this);
 		this.visibleMainNodeStyle = this.visibleMainNodeStyle.bind(this);
 		this.finalDeltaPositions = this.finalDeltaPositions.bind(this);
-
+		this.updateFanAngle = this.updateFanAngle.bind(this);
 		// The number of child buttons that fly out from the main button
-		const NUM_CHILDREN = props.childNodes ? props.childNodes.length : 0;
+	
+		this.updateFanAngle();
+	}
+	
+	updateFanAngle() {
+		const NUM_CHILDREN = this.props.childNodes ? this.props.childNodes.length : 0;
 		this.SEPARATION_ANGLE = 50/(NUM_CHILDREN+1); //degrees
 		const FAN_ANGLE = (NUM_CHILDREN - 1) * this.SEPARATION_ANGLE; //degrees
+		
 		this.BASE_ANGLE = ((50 - FAN_ANGLE)/2); // degrees
 		this.fly_out_radius = 150;
-
 	}
-
 
   	componentWillMount() {
 	    this.updatePosition();
@@ -160,6 +164,8 @@ export default class NodeComponent extends React.Component {
 	}
 
 	render() {
+		this.updateFanAngle();
+		
 		const {M_X, M_Y, M_HEIGHT, M_WIDTH} = this.state.mainNodeProperties;
 		
 		const mainComponentStyle = {
@@ -182,7 +188,7 @@ export default class NodeComponent extends React.Component {
 										<div
 											onClick={
 												() => {
-													this.props.onChildNodeClicked(this.props.level, childNode.props.children);
+													this.props.onChildNodeClicked(this.props.level, (childNode.props.children || childNode.props.name));
 												}
 											}	
 											className={childClass}
@@ -218,7 +224,7 @@ export default class NodeComponent extends React.Component {
 								borderRadius,
 								fontSize
 							}} onClick={ () => {
-								this.props.onMainNodeClicked(this.props.level, true);
+								this.props.onMainNodeClicked(this.props.level, this.props.mainNode.props.name, true);
 							}}>
 								{this.props.mainNode}
 							</div>
