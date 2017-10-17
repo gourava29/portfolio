@@ -5,4 +5,8 @@ class Work < ApplicationRecord
 	
 	belongs_to :user
 	has_many :projects
+	
+	def excludedRel
+		[:projects]
+	end
 end

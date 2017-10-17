@@ -1,7 +1,9 @@
 import React from 'react';
 import SocialConnections from './SocialConnections';
 import NodeComponent from '../Common/NodeComponentContainer';
+import ChildNode from '../Common/ChildNode';
 import SkillComponent from './SkillComponent';
+import { Link } from 'react-router';
 
 const emptyObject = {};
 export default class Main extends React.Component {
@@ -75,19 +77,19 @@ export default class Main extends React.Component {
     const mainNode = this.renderMainNode(currentComp);
     const { mainNodeName, level , name, childToMain} = this.props;
     (relationshipsList).forEach(function(item, index) {
-      if(['ui','db','backend','devop'].indexOf((mainNodeName || name).toLowerCase()) > -1 && level > 1)
+      if(['ui','db','backend','devop'].indexOf((mainNodeName || name).toLowerCase()) > -1 && level > 1){
         childNodes.push(
           <SkillComponent {...item}/>
         );
-      else{
+      } else {
         const itemName = item.name;
-        childNodes.push(<div title={itemName.toUpperCase()}>{itemName.split(" ")[0].toUpperCase()}</div>);
+        childNodes.push(<ChildNode {...item}/>);
       }
     });
     
     return (
       <div>
-        <NodeComponent showEdges={false} level={this.props.level} childNodes={childNodes} mainNode={mainNode}/>
+        <NodeComponent showEdges={false} level={this.props.level} childNodes={childNodes} mainNode={mainNode} location={this.props.location}/>
         <SocialConnections connections={this.props.connections}/>
       </div>
     );

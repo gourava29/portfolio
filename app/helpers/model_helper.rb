@@ -1,8 +1,13 @@
 module ModelHelper
+	def excludedRel
+		[]
+	end
+	
 	def to_relationship_format(excludedModels = [])
 		self_json = self.as_json(:include => excludedModels)
 		self_json["relationships"] = []
 		has_many_reflections = self.class.reflect_on_all_associations(:has_many)
+		excludedModels = excludedModels.concat(self.excludedRel)
 		has_many_reflections.map(&:name).each do |associatedChildModel|
 			unless excludedModels.include? associatedChildModel
 				currentModelJsonList = [];
