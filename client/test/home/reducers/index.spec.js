@@ -1,12 +1,14 @@
 import combineReducer from '../../../app/home/reducers';
 import { main } from '../../../app/home/reducers/MainComponentReducer';
 import { nodeComp } from '../../../app/home/reducers/NodeComponentReducer';
+import { routerReducer } from 'react-router-redux';
 
 describe("Combined Reducer", () => {
 	it("returns default state", () => {
 		expect(combineReducer(undefined, {})).to.deep.eq({
 			main: main(undefined, {}),
-			nodeComp: nodeComp(undefined, {})
+			nodeComp: nodeComp(undefined, {}),
+			routing: routerReducer()
 		});
 	});
 
@@ -18,7 +20,8 @@ describe("Combined Reducer", () => {
 		};
 	  	expect(combineReducer(undefined, action)).to.deep.equal({
 			main: main(undefined, action),
-			nodeComp: nodeComp(undefined, {})
+			nodeComp: nodeComp(undefined, {}),
+			routing: routerReducer()
 	  	});
   	});
 
@@ -30,7 +33,8 @@ describe("Combined Reducer", () => {
 		};
 	  	expect(combineReducer(undefined, action)).to.deep.equal({
 	  	    main: main(undefined, action),
-			nodeComp: nodeComp(undefined, {})
+			nodeComp: nodeComp(undefined, {}),
+			routing: routerReducer()
 	  	});
   	});
 
@@ -38,7 +42,8 @@ describe("Combined Reducer", () => {
 	  	const action = {type: 'MAIN_NODE_TOGGLE'}
 	  	expect(combineReducer(undefined, action)).to.deep.equal({
 	  		main: main(undefined, {}),
-	  		nodeComp: nodeComp(undefined, action)
+	  		nodeComp: nodeComp(undefined, action),
+			routing: routerReducer()
 	  	});
   	});
 
@@ -48,7 +53,8 @@ describe("Combined Reducer", () => {
 		};
 	  	expect(combineReducer(undefined, action)).to.deep.equal({
 	  		main: main(undefined, {}),
-	  		nodeComp: nodeComp(undefined, action)
+	  		nodeComp: nodeComp(undefined, action),
+			routing: routerReducer()
 	  	});
   	});
 });

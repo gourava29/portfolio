@@ -1,23 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Motion, spring} from 'react-motion';
+import classNames from 'classnames';
+import Constant from '../../../constants';
 
-//Constants 
+const {mainButtonDimension, DEG_TO_RAD, damping} = Constant;
 
-const mainButtonDimension = {
-  mobile: {
-    width: 260,
-    height: 95
-  },
-  desktop: {
-    width: 400,
-    height: 125
-  }
-};
-
-// Value of 1 degree in radians
-const DEG_TO_RAD = Math.PI/50;
-const damping = 18;
 function toRadians(degrees) {
 	return degrees * DEG_TO_RAD;
 }
@@ -108,16 +96,22 @@ export default class NodeComponent extends React.Component {
 		};
 	}
 
-	visibleNodeStyle(childIndex, M_X, M_Y) {
+	visibleNodeStyle(childIndex, M_X, M_Y, isActive) {
 		let {deltaX, deltaY} = this.finalDeltaPositions(childIndex);
-
+		let xPos = M_X + deltaX;
+		let yPos = M_Y - deltaY;
+		if(isActive){
+			const xyPos = (window.innerWidth < 1024) ? 5 : 20;
+			xPos = xyPos;
+			yPos = xyPos;
+		}
 		return {
 			style:{
-				left: spring(M_X + deltaX, {stiffness: 120, damping}),
-				top: spring(M_Y - deltaY, {stiffness: 120, damping}),
+				left: spring(xPos, {stiffness: 120, damping}),
+				top: spring(yPos, {stiffness: 120, damping}),
 				rotate: spring(360, {stiffness: 120, damping}),
-				x: spring(M_X + deltaX + this.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping}),
-				y: spring(M_Y - deltaY + this.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping}),
+				x: spring(xPos + this.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping}),
+				y: spring(yPos + this.state.childNodeProperties.C_DIAM/2, {stiffness: 120, damping}),
 				width: this.state.childNodeProperties.C_DIAM,
 				height: this.state.childNodeProperties.C_DIAM
 			},
@@ -172,14 +166,24 @@ export default class NodeComponent extends React.Component {
 	      top: spring(M_Y - M_HEIGHT/2),
 	      left: spring(M_X - M_WIDTH/2)
 	    };
-	    
 	    let mainButtonStyle = this.props.mainNodeActive ? this.visibleMainNodeStyle(M_X, M_Y) : this.defaultMainNodeStyle();
 		const mainClass = "main-button" + (this.props.mainNodeActive ? " isActive" : "");
+		const currentRoute = this.props.location.pathname;
+		const mainNodeName = this.props.mainNode ? this.props.mainNode.props.name : "";
 		return (
 			<div>
 				{(this.props.childNodes ? this.props.childNodes : []).map( (childNode, index) => {
-					let {style, coOrdinates} = this.props.mainNodeActive ? this.visibleNodeStyle(index, M_X, M_Y) : this.defaultNodeStyle(M_X, M_Y);
-					const childClass = "child-button transparent-background" + (this.props.mainNodeActive ? " isActive" : "");
+					const childNodeName = (childNode.props.children || childNode.props.name);
+					const childNodeId = mainNodeName + "-" + (childNode.props.id || childNode.props.name);
+					const isActiveRoute = currentRoute.indexOf(childNodeId) > -1;
+					
+					let {style, coOrdinates} = this.props.mainNodeActive ? this.visibleNodeStyle(index, M_X, M_Y, isActiveRoute) : this.defaultNodeStyle(M_X, M_Y);
+					
+					const childClass = classNames("child-button transparent-background", {
+						"isActive": this.props.mainNodeActive,
+						"isActiveRoute" : isActiveRoute
+					});
+					const hasChildren = childNode.props.relationships && childNode.props.relationships.length > 0;
 					return (
 						<Motion style={style} key={index}>
 							{
@@ -188,7 +192,7 @@ export default class NodeComponent extends React.Component {
 										<div
 											onClick={
 												() => {
-													this.props.onChildNodeClicked(this.props.level, (childNode.props.children || childNode.props.name));
+													this.props.onChildNodeClicked(this.props.level, childNodeName, childNodeId, currentRoute, hasChildren);
 												}
 											}	
 											className={childClass}

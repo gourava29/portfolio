@@ -1,22 +1,28 @@
 import { CHILD_TO_MAIN_NODE_TRANSITION, MAIN_TO_CHILD_NODE_TRANSITION } from "./MainComponentActions";
-
-export const CHILD_NODE_TOGGLE = (level, name) => {
+import { push } from 'react-router-redux'
+export const CHILD_NODE_TOGGLE = (level, name, childId, currentRoute, hasChildren) => {
 	return function (dispatch) {
 		return new Promise((resolve, reject) => {
-			if(level < 2) {
+			if(hasChildren) {
 				dispatch(MAIN_NODE_TOGGLE(level)).then(firstMainNodeDispatch=>{
-					dispatch(CHILD_TO_MAIN_NODE_TRANSITION(name));
+					dispatch(CHILD_TO_MAIN_NODE_TRANSITION(name, hasChildren));
 					setTimeout(() => {
 						dispatch(MAIN_NODE_TOGGLE(level, name)).then(secondMainNodeDispatch => {
 							resolve([
 								firstMainNodeDispatch,
-								secondMainNodeDispatch
+								secondMainNodeDispatch,
+								dispatch(push("/"))
 							]);
 						});
 					}, 200);
 				});
 			} else {
-				resolve(dispatch(CHILD_TO_MAIN_NODE_TRANSITION(name)));
+				const childToMainDispatch = dispatch(CHILD_TO_MAIN_NODE_TRANSITION(name, hasChildren));
+				let redirectToRouteName = "/child/"+childId;
+				if(currentRoute.indexOf(redirectToRouteName) > -1) 
+					redirectToRouteName = "/";
+				resolve([childToMainDispatch, dispatch(push(redirectToRouteName))]);
+				
 			}
 		});
 	}
@@ -37,12 +43,16 @@ export const MAIN_NODE_TOGGLE = (level, name, isDirect) => {
 					const response = [
 						firstMainNodeToggleDispatch,
 						mainToChildDispatch,
-						secondMainNodeToggleDispatch
+						secondMainNodeToggleDispatch,
+						dispatch(push("/"))
 					];
 					resolve(response);
 				}, 200);
 			} else {
-				resolve(firstMainNodeToggleDispatch);
+				resolve([
+					firstMainNodeToggleDispatch,
+					dispatch(push("/"))
+				]);
 			}
 		});
 	}

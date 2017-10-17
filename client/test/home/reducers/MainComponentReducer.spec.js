@@ -11,7 +11,8 @@ describe('MainComponentReducer', () => {
 	  	const name = "Work"
 	  	expect(main(undefined, {
 	  		type: 'CHILD_TO_MAIN_NODE_TRANSITION',
-			name
+			name,
+			hasChildren: true
 		})).to.deep.equal({
 			childToMain: true,
 	  	    level: level + 1,

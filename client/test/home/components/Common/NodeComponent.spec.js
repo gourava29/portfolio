@@ -2,12 +2,12 @@ import React from 'react';
 import {Motion, spring} from 'react-motion';
 
 import NodeComponent from '../../../../app/home/components/Common/NodeComponent';
+import Constant from '../../../../app/constants';
 
 describe('NodeComponent', () => {
 
 	// Value of 1 degree in radians
-	const DEG_TO_RAD = Math.PI/50;
-	const damping = 18;
+	const { DEG_TO_RAD, damping } = Constant;
 
 	function toRadians(degrees) {
 		return degrees * DEG_TO_RAD;
@@ -22,7 +22,10 @@ describe('NodeComponent', () => {
 			childNodes: [ (<div>child1</div>), (<div>child2</div>)],
 			mainNodeActive: false, 
 			onChildNodeClicked:childNodeSpy,
-			onMainNodeClicked:mainNodeSpy
+			onMainNodeClicked:mainNodeSpy,
+			location: {
+				pathname: ''
+			}
 		};
 	
 		wrapper = shallow(<NodeComponent {...props}/>);

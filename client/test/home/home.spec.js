@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Home from '../../app/home/home';
-import Main from '../../app/home/components/Main/MainComponentContainer';
+import ModalSwitch from '../../app/home/components/ModalSwitch';
 import {Provider} from 'react-redux';
+import { Route } from 'react-router';
 import configureStore from '../../app/home/store';
 
 describe('Home', () => {
@@ -31,8 +32,11 @@ describe('Home', () => {
     expect(provider).to.have.length(1);
   });
 
-  it('renders Main', () => {
-    const main = wrapper.find(Main);
-    expect(main).to.have.length(1);
+  it('ModalSwitch Route', () => {
+    const pathMap = wrapper.find(Route).map( (route, index) => {
+      const routeProps = route.props();
+      return { comp : routeProps.component, path : routeProps.path};
+    });
+    expect(pathMap[0]).to.deep.equal({comp: ModalSwitch, path: undefined});
   });
 });
