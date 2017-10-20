@@ -1,5 +1,11 @@
 # This will guess the User class
 FactoryGirl.define do
+  factory :techcollabarator do
+    description "MyString"
+    technology nil
+    project nil
+  end
+
   factory :technology do
     name "ROR"
     efficiency 1
