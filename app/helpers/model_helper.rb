@@ -1,6 +1,6 @@
 module ModelHelper
-	def excludedRel
-		[]
+	def excludedRel (excluded = [])
+		excluded
 	end
 	
 	def to_relationship_format(excludedModels = [])
