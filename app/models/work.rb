@@ -7,6 +7,6 @@ class Work < ApplicationRecord
 	has_many :projects
 	
 	def excludedRel
-		[:projects]
+		super([:projects])
 	end
 end

@@ -31,8 +31,14 @@ jenk = devop.technologies.create(name: "Jenkins", efficiency: 3)
 
 spellbound = user.works.create(name: 'Spellbound Information Solutions Pvt. Ltd.')
 doesAnyone = spellbound.projects.create(name: 'DoesAnyone')
-doesAnyone.technologies.concat([angular, java, mySql, html, css, javascript])
+# doesAnyone.technologies.concat([angular, java, mySql, html, css, javascript])
 doesAnyone.save()
+Techcollabarator.create(description: "Angular", technology_id: angular.id, project_id: doesAnyone.id)
+# angularTechCol = Techcollabarator.new()
+# angularTechCol.description = "Used angular to develop the following futures. 1) LazyLoad 2) Form Validations"
+# angularTechCol.project = doesAnyone
+# angularTechCol.technology = angular
+# angularTechCol.save()
 
 enabli = spellbound.projects.create(name: 'Enabli')
 enabli.technologies.concat([angular, node, mongo, neo4J, html, css, javascript])
