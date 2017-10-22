@@ -1,5 +1,5 @@
 module ModelHelper
-	def excludedRel (excluded = [])
+	def excludedRel(excluded = [])
 		excluded
 	end
 	
@@ -23,5 +23,19 @@ module ModelHelper
 			end
 		end
 		self_json
+	end
+	
+	def as_json(options = {})
+		@includedOptions = options[:include]
+		options[:include] = nil
+		json = super(options)
+		unless @includedOptions.nil?
+			@includedOptions.each do |childModelName| 
+				@associatedModel = self.send(childModelName)
+				json[childModelName] = @associatedModel.kind_of?(Array) ? @associatedModel.map {|childModel| childModel.as_json} : @associatedModel
+			end
+		end
+		json[:link] = Rails.application.routes.url_helpers.url_for(self)  
+		json
 	end
 end

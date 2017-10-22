@@ -18,3 +18,4 @@ Rails.application.routes.draw do
   resources :skills
   resources :technologies
 end
+Rails.application.routes.default_url_options[:only_path] = true

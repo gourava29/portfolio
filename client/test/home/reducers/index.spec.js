@@ -8,6 +8,7 @@ describe("Combined Reducer", () => {
 		expect(combineReducer(undefined, {})).to.deep.eq({
 			main: main(undefined, {}),
 			nodeComp: nodeComp(undefined, {}),
+			route: { currentRoute : undefined },
 			routing: routerReducer()
 		});
 	});
@@ -21,6 +22,7 @@ describe("Combined Reducer", () => {
 	  	expect(combineReducer(undefined, action)).to.deep.equal({
 			main: main(undefined, action),
 			nodeComp: nodeComp(undefined, {}),
+			route: { currentRoute : undefined },
 			routing: routerReducer()
 	  	});
   	});
@@ -34,6 +36,7 @@ describe("Combined Reducer", () => {
 	  	expect(combineReducer(undefined, action)).to.deep.equal({
 	  	    main: main(undefined, action),
 			nodeComp: nodeComp(undefined, {}),
+			route: { currentRoute : undefined },
 			routing: routerReducer()
 	  	});
   	});
@@ -43,6 +46,7 @@ describe("Combined Reducer", () => {
 	  	expect(combineReducer(undefined, action)).to.deep.equal({
 	  		main: main(undefined, {}),
 	  		nodeComp: nodeComp(undefined, action),
+			route: { currentRoute : undefined },
 			routing: routerReducer()
 	  	});
   	});
@@ -54,6 +58,19 @@ describe("Combined Reducer", () => {
 	  	expect(combineReducer(undefined, action)).to.deep.equal({
 	  		main: main(undefined, {}),
 	  		nodeComp: nodeComp(undefined, action),
+			route: { currentRoute : undefined },
+			routing: routerReducer()
+	  	});
+  	});
+  	
+  	it('should handle MAIN_TO_CHILD_NODE_TRANSITION', () => {
+  		const action = {
+	  		type: 'CHILD_NODE_TOGGLE'
+		};
+	  	expect(combineReducer(undefined, action)).to.deep.equal({
+	  		main: main(undefined, {}),
+	  		nodeComp: nodeComp(undefined, action),
+			route: { currentRoute : undefined },
 			routing: routerReducer()
 	  	});
   	});
