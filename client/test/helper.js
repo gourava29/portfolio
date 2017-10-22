@@ -10,3 +10,15 @@ global.assert = assert;
 global.mount = mount;
 global.render = render;
 global.shallow = shallow;
+
+global.fetchStubSuccess = (respData)  => {
+    return new Promise((resolve, reject) => resolve({ json: () => new Promise((resolve, reject) => resolve(respData)) }));
+}
+
+global.fetchStubFailure = (respError)  => {
+    return new Promise((resolve, reject) => reject(respError));
+}
+
+global.fetchStubJSONFailer = ()  => {
+    return new Promise((resolve, reject) => resolve({ json: () => new Promise((resolve, reject) => reject()) }));
+}

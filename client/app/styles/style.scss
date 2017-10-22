@@ -168,6 +168,24 @@ html { font-size: 62.5%; }
 		font-weight: bold;
 		border-bottom: 1px solid black;
 	}
+	
+	.child-comp {
+		padding: 15px;
+		.title {
+			font-size: 20px;
+		    padding: 0;
+		    text-transform: capitalize;
+		}
+		
+		.sub-child-comp {
+			padding: 5px;
+			.title {
+				font-size: 14px;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+		}
+	}
     
 }
 

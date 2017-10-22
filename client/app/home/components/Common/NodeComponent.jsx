@@ -175,6 +175,7 @@ export default class NodeComponent extends React.Component {
 				{(this.props.childNodes ? this.props.childNodes : []).map( (childNode, index) => {
 					const childNodeName = (childNode.props.children || childNode.props.name);
 					const childNodeId = mainNodeName + "-" + (childNode.props.id || childNode.props.name);
+					const childLink = childNode.props.link;
 					const isActiveRoute = currentRoute.indexOf(childNodeId) > -1;
 					
 					let {style, coOrdinates} = this.props.mainNodeActive ? this.visibleNodeStyle(index, M_X, M_Y, isActiveRoute) : this.defaultNodeStyle(M_X, M_Y);
@@ -192,7 +193,7 @@ export default class NodeComponent extends React.Component {
 										<div
 											onClick={
 												() => {
-													this.props.onChildNodeClicked(this.props.level, childNodeName, childNodeId, currentRoute, hasChildren);
+													this.props.onChildNodeClicked(this.props.level, childNodeName, childNodeId, currentRoute, childLink, hasChildren);
 												}
 											}	
 											className={childClass}
