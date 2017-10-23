@@ -32,10 +32,26 @@ module ModelHelper
 		unless @includedOptions.nil?
 			@includedOptions.each do |childModelName| 
 				@associatedModel = self.send(childModelName)
-				json[childModelName] = @associatedModel.kind_of?(Array) ? @associatedModel.map {|childModel| childModel.as_json} : @associatedModel
+				json[childModelName] = get_child_json(@associatedModel)
 			end
 		end
 		json[:link] = Rails.application.routes.url_helpers.url_for(self)  
 		json
+	end
+		
+	def get_child_json(child_model)
+		unless child_model.is_a?(ActiveRecord::Base)
+			child_model.map do |childModel|
+				 child_json = childModel.as_json
+				 if childModel.class.name.eql?("Technology")
+					 child_json["tc_description"] = self.techcollabarators.where(technology_id: childModel.id).first.description
+				 elsif childModel.class.name.eql?("Project")
+					 child_json["tc_description"] = self.techcollabarators.where(project_id: childModel.id).first.description
+				 end
+				 child_json
+			end
+		else 
+			child_model
+		end
 	end
 end
