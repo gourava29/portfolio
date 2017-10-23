@@ -1,0 +1,127 @@
+{
+    "data" : {
+        "name": "Gourav Agarwal",
+        "role": "Web Developer"
+    },
+    "connections": [
+        {
+           "name": "Quora",
+           "link": "https://www.quora.com/profile/Gourav-Agarwal-6"
+        }, {
+           "name": "LinkedIn",
+           "link": "https://www.linkedin.com/in/gourava29/"
+        }
+    ],
+    "skills": [
+        {
+           "data" : { "name": "UI" },
+           "technologies": [
+                {
+                   "name": "HTML",
+                   "efficiency": 8 
+                }, {
+                   "name": "CSS",
+                   "efficiency": 7
+                }, {
+                   "name": "JAVASCRIPT",
+                   "efficiency": 7
+                }, {
+                   "name": "Angular",
+                   "efficiency": 8
+                }, {
+                   "name": "React",
+                   "efficiency": 8
+                }
+            ]
+        }, {
+           "data" : { "name": "Backend" },
+           "technologies": [
+                {
+                   "name": "Java",
+                   "efficiency": 5
+                }, {
+                   "name": "ROR",
+                   "efficiency": 6
+                }, {
+                   "name": "NodeJS",
+                   "efficiency": 8
+                }
+            ]
+        }, {
+           "data" : { "name": "DB" },
+           "technologies": [
+                {
+                   "name": "MySQL",
+                   "efficiency": 5
+                }, {
+                   "name": "MongoDB",
+                   "efficiency": 6
+                }, {
+                   "name": "Neo4J Graph DB",
+                   "efficiency": 4
+                }
+            ]
+        }, {
+           "data" : { "name": "DevOp" },
+           "technologies": [
+                {
+                   "name": "CircleCI",
+                   "efficiency": 4
+                }, {
+                   "name": "Jenkins",
+                   "efficiency": 3
+                }
+            ]
+        }
+    ],
+    "works": [
+        {
+           "data" : { "name": "Spellbound Information Solutions Pvt. Ltd." },
+           "projects": [
+                {
+                   "data" : { "name": "DoesAnyone" },
+                   "technologies": [ 
+                        {
+                           "name": "Angular",
+                           "description": "Angular for DoesAnyone"
+                        }
+                    ]
+                }, {
+                   "data" : { "name": "Enabli" },
+                   "technologies": [
+                        {
+                           "name": "Angular",
+                           "description": "Angular for Enabli"
+                        }
+                    ]
+                }
+            ]
+        }, {
+           "data" : { "name": "Cognizant Technology Solutions Pvt. Ltd." },
+           "projects": [
+                {
+                   "data" : { "name": "PCPT (Product Cluster Planning Tool)" },
+                   "technologies": []
+                }, {
+                   "data" : { "name": "IMS (Inhibit Management System)" },
+                   "technologies": []
+                }, {
+                   "data" : { "name": "BGP (Business Grants Portal)" },
+                   "technologies": []
+                }, {
+                   "data" : { "name": "WMS (Wealth Management System)" },
+                   "technologies": []
+                }
+            ]
+        }, {
+           "data" : { "name": "Standard Chartered" },
+           "projects": [
+                {
+                   "data" : { "name": "PII (Personalised Investment Ideas" },
+                   "technologies": []
+                }
+            ]
+        }
+    ]
+    
+}
