@@ -3,6 +3,7 @@ import {Motion, spring} from 'react-motion';
 import { connect } from 'react-redux';
 import Constant from '../../constants';
 import classNames from 'classnames';
+import Accordion from './Common/Accordion';
 
 const { modal } = Constant;
 
@@ -67,14 +68,22 @@ class Modal extends React.Component{
             if(childCompArr instanceof Array){
                 childComp.push(
                     <div key={key} className="child-comp">
-                        <div className="title">{key}</div>
-                        {
-                            childCompArr.map((childCompObj, index) => 
-                                <div key={`sub-child-${index}`} className="sub-child-comp">
-                                    <div className="title">{childCompObj.name}</div>
-                                </div>
-                            )
-                        }
+                        <Accordion title={key} isOpen={true}>
+                            {
+                                childCompArr.map((childCompObj, index) => 
+                                    <div key={`sub-child-${index}`} className="sub-child-comp">
+                                        <Accordion title={childCompObj.name} isOpen={true}>
+                                            <div className="description">
+                                                <div dangerouslySetInnerHTML={{ __html: childCompObj.description }} />
+                                            </div>
+                                            {
+                                                childCompObj.tc_description ? <div className="tc_description" dangerouslySetInnerHTML={{ __html: childCompObj.tc_description }} /> : ""
+                                            }
+                                        </Accordion>
+                                    </div>
+                                )
+                            }
+                        </Accordion>
                     </div>
                 )
             }
@@ -86,10 +95,10 @@ class Modal extends React.Component{
 		                <div className="route-modal" style={{height: height+"vh", width: width+"%"}}>
                             <div className="container">
                                 <div className='title'>{title}</div>
-                                <div className='description'>{description}</div>
+                                <div className='description' dangerouslySetInnerHTML={{ __html: description }} />
                             </div>
                             {
-                                this.props.currentRoute ? <div className='childContainer'>{childComp}</div> : <div className="loader"></div>   
+                                this.props.currentRoute ? <div className='child-container'>{childComp}</div> : <div className="loader"></div>   
                             }
                         </div>
 					)

@@ -4,8 +4,8 @@ class User < ApplicationRecord
 	validates :name, presence: true
 	validates :role, presence: true
 
-	has_many :works
-	has_many :skills
-	has_many :hobbies
-	has_many :connections
+	has_many :works, dependent: :destroy
+	has_many :skills, dependent: :destroy
+	has_many :hobbies, dependent: :destroy
+	has_many :connections, dependent: :destroy
 end

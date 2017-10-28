@@ -1,0 +1,19 @@
+.acc-title {
+    .fa {
+        float: right;
+    }
+}
+.acc-title:hover {
+    cursor: pointer;
+}
+.acc-content {
+    max-height: 0;
+    overflow-y: hidden;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+.acc-content.open {
+    max-height: 500px;
+}

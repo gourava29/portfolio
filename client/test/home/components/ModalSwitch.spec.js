@@ -50,7 +50,7 @@ describe('ModalSwitch', () => {
     
     it('renders Routes', () => {
         let routes = wrapper.find(Route).map( (route, index) => route);
-      	expect(routes).to.have.length(1);
+      	expect(routes).to.have.length(2);
       	expect(routes[0].props().component).to.equal(Main);
       	wrapper.setProps({ location: 'test1', history: { action: 'PUSH'} });
       	routes = wrapper.find(Route).map( (route, index) => route);

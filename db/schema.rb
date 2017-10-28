@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20171018033828) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "work_id"
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20171018033828) do
 
   create_table "skills", force: :cascade do |t|
     t.string "name"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
@@ -82,6 +84,7 @@ ActiveRecord::Schema.define(version: 20171018033828) do
   create_table "technologies", force: :cascade do |t|
     t.string "name"
     t.integer "efficiency"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "skill_id"
@@ -97,6 +100,7 @@ ActiveRecord::Schema.define(version: 20171018033828) do
 
   create_table "works", force: :cascade do |t|
     t.string "name"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"

@@ -26,32 +26,40 @@ module ModelHelper
 	end
 	
 	def as_json(options = {})
-		@includedOptions = options[:include]
-		options[:include] = nil
-		json = super(options)
-		unless @includedOptions.nil?
-			@includedOptions.each do |childModelName| 
-				@associatedModel = self.send(childModelName)
-				json[childModelName] = get_child_json(@associatedModel)
+		_includedOptions = options[:include]
+		_json = super(options.deep_dup.except!(:include))
+		unless _includedOptions.nil?
+			_includedOptionsList = _includedOptions
+			if _includedOptions.class.eql?(Hash)
+				_includedOptionsList = _includedOptions.to_a
+			end
+			_includedOptionsList.each do |childModel| 
+				_associatedModelName = childModel.class.eql?(Array) ? childModel[0] : childModel
+				_associatedModelOptions = childModel.class.eql?(Array) ? childModel[1] : {}
+				_associatedModel = self.send(_associatedModelName)
+				_json[_associatedModelName] = get_child_json(_associatedModel, _associatedModelOptions)
 			end
 		end
-		json[:link] = Rails.application.routes.url_helpers.url_for(self)  
-		json
+		_json[:link] = Rails.application.routes.url_helpers.url_for(self)  
+		_json
 	end
 		
-	def get_child_json(child_model)
+	def get_child_json(child_model, options)
+		_child_options = options
 		unless child_model.is_a?(ActiveRecord::Base)
 			child_model.map do |childModel|
-				 child_json = childModel.as_json
-				 if childModel.class.name.eql?("Technology")
-					 child_json["tc_description"] = self.techcollabarators.where(technology_id: childModel.id).first.description
-				 elsif childModel.class.name.eql?("Project")
-					 child_json["tc_description"] = self.techcollabarators.where(project_id: childModel.id).first.description
+				child_json = childModel.as_json(_child_options)
+				 if self.respond_to?(:techcollabarators)
+					 if childModel.class.name.eql?("Technology")
+						 child_json["tc_description"] = self.techcollabarators.where(technology_id: childModel.id).first.description
+					 elsif childModel.class.name.eql?("Project")
+						 child_json["tc_description"] = self.techcollabarators.where(project_id: childModel.id).first.description
+					 end
 				 end
 				 child_json
 			end
 		else 
-			child_model
+			child_model.as_json(options)
 		end
 	end
 end

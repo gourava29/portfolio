@@ -4,7 +4,7 @@ class WorksController < ApplicationController
 	end
 
 	def show
-		render :json => Work.find(params[:id]).as_json(:include => [:projects])
+		render :json => Work.find(params[:id]).as_json(:include => {:projects => {:include => [:technologies]}})
 	end
 end
 

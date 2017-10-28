@@ -45,7 +45,7 @@ export default class ModalSwitch extends React.Component {
     return (
       <div>
         <Route component={Main}/>
-        {isModal ? <Route path='/child/:id' component={Modal} /> : null}
+        <Route path='/child/:id' component={Modal} />
       </div>
     )
   }
