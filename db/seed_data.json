@@ -76,10 +76,16 @@
     ],
     "works": [
         {
-           "data" : { "name": "Spellbound Information Solutions Pvt. Ltd." },
+           "data" : {
+               "name": "Spellbound Information Solutions Pvt. Ltd.",
+               "description": "<p>SpellBound’s primary products are Social Networks called “Enabli” and “DoesAnyone”. I joined as a junior developer and currently lead a team of two interns while working closely with the CTO.</p>"
+           },
            "projects": [
                 {
-                   "data" : { "name": "DoesAnyone" },
+                   "data" : {
+                       "name": "DoesAnyone",
+                       "description": "<p>It is a classifieds website integrated with facebook. Users post their request and doesanyone finds the right people who can answer their questions using their social graph.</p>"
+                   },
                    "technologies": [ 
                         {
                            "name": "Angular",
@@ -87,7 +93,10 @@
                         }
                     ]
                 }, {
-                   "data" : { "name": "Enabli" },
+                   "data" : {
+                       "name": "Enabli",
+                       "description": "<p>It is a web/mobile application which scans statuses from Facebook, Twitter news feeds and filters out important requests using its proprietary algorithms. It also suggests how you can help your friends with their requests.</p>"
+                   },
                    "technologies": [
                         {
                            "name": "Angular",
@@ -97,27 +106,45 @@
                 }
             ]
         }, {
-           "data" : { "name": "Cognizant Technology Solutions Pvt. Ltd." },
+           "data" : {
+               "name": "Cognizant Technology Solutions Pvt. Ltd.",
+               "description":"<p>At Cognizant I work at Digital Engagement Practice (DEP).</p><p>DEP’s primary services are developing new web applications and providing support to existing web applications. I joined here as a Programmer Analyst and currently leading a team of two more associates.</p>"
+           },
            "projects": [
                 {
-                   "data" : { "name": "PCPT (Product Cluster Planning Tool)" },
+                   "data" : {
+                       "name": "PCPT (Product Cluster Planning Tool)",
+                       "description": "<p>“Product Cluster Planning Tool&quot; (PCPT) is built by Financial Planning &amp; Analysis (FP&amp;A) team to serve the merchants to perform assortment planning using Efficient Item Assortment (EIA) based on the historical sales volume purpose. PCPT is a web based application which provides the (plan for the product) assortment planning at cluster and sub-cluster level. However, in order to fully realize the business benefit from these decisions, the data needs to be disseminated to store level to be truly actionable.</p>"
+                   },
                    "technologies": []
                 }, {
-                   "data" : { "name": "IMS (Inhibit Management System)" },
+                   "data" : {
+                       "name": "IMS (Inhibit Management System)",
+                       "description": "<p>“Inhibit Management System”(IMS) is a web based applications, built to serve the management of inhibits(defective pieces) of client. It was built for a major semi-conductor manufacturing company to manage inventory of all the defective manufactured items. The complexity of the project was maintaining inventory for a combination of item. One item could be working but when connected with another item it might not work. Hence forth, combinations of items could also be defective.</p>"
+                   },
                    "technologies": []
                 }, {
-                   "data" : { "name": "BGP (Business Grants Portal)" },
+                   "data" : {
+                       "name": "BGP (Business Grants Portal)",
+                       "description": "<p>“Business Grant Portal”(BGP) is a web application, built to serve management of grants for enterprises by the different government agencies. The application mainly dealt with forms, with different set of validations. It is build over ROR, with ReactJS as Front-End Javascript Framework.</p>"
+                   },
                    "technologies": []
                 }, {
-                   "data" : { "name": "WMS (Wealth Management System)" },
+                   "data" : {
+                       "name": "WMS (Wealth Management System)",
+                       "description": "<p>“Wealth Management System”(WMS) is a web application, built to serve management of accounts for enterprises and non-retail of bank. The application mainly dealt with forms, with different set of validations. It is build with AngularJS(1.5 with typescript) as Front-End Javascript Framework. My roles in this project were as follows.</p>"
+                   },
                    "technologies": []
                 }
             ]
         }, {
-           "data" : { "name": "Standard Chartered" },
+           "data" : {
+               "name": "Standard Chartered",
+               "description": "<p>At Standard Chartered, I am a part of wealth team, building Investment Ideas Application for Clients and Relationship Manager.</p>"
+           },
            "projects": [
                 {
-                   "data" : { "name": "PII (Personalised Investment Ideas" },
+                   "data" : { "name": "PII (Personalised Investment Ideas)" },
                    "technologies": []
                 }
             ]

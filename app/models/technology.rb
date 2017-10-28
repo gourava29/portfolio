@@ -6,7 +6,7 @@ class Technology < ApplicationRecord
     
     belongs_to :skill
     
-	has_many :techcollabarators
+	has_many :techcollabarators, dependent: :destroy
 	has_many :projects, :through => :techcollabarators
 
 	def excludedRel

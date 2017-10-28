@@ -151,6 +151,7 @@ html { font-size: 62.5%; }
     z-index: 2;
     position: fixed;
     left: 2.5%;
+    overflow: auto;
     
     @include breakpoint(medium){
 		margin-top: 5vh;
@@ -158,6 +159,11 @@ html { font-size: 62.5%; }
 	
 	.container {
 		width: 95%;
+		margin: 0 auto;
+	}
+	
+	.child-container {
+		width: 97%;
 		margin: 0 auto;
 	}
 	
@@ -169,12 +175,22 @@ html { font-size: 62.5%; }
 		border-bottom: 1px solid black;
 	}
 	
+	.description {
+		font-size: 1.2rem;
+	    font-weight: bold;
+	    text-align: justify;
+	}
+	
 	.child-comp {
 		padding: 15px;
 		.title {
 			font-size: 20px;
 		    padding: 0;
 		    text-transform: capitalize;
+		}
+		
+		.description {
+			font-weight: normal;
 		}
 		
 		.sub-child-comp {

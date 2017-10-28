@@ -4,6 +4,7 @@ import ModalSwitch from './components/ModalSwitch';
 import { Provider } from 'react-redux';
 
 import { Router, Route } from 'react-router';
+
 import { createBrowserHistory } from 'history';
 
 import configureStore from './store';

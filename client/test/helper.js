@@ -22,3 +22,12 @@ global.fetchStubFailure = (respError)  => {
 global.fetchStubJSONFailer = ()  => {
     return new Promise((resolve, reject) => resolve({ json: () => new Promise((resolve, reject) => reject()) }));
 }
+
+global.localStorage = {
+    getItem: function (key) {
+        return null;
+    },
+    setItem: function(key, value) {
+        //
+    }
+}
