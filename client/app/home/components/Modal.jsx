@@ -6,7 +6,10 @@ import classNames from 'classnames';
 import Accordion from './Common/Accordion';
 
 const { modal } = Constant;
-
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+ 
 class Modal extends React.Component{
     constructor(props) {
         super(props);
@@ -43,6 +46,21 @@ class Modal extends React.Component{
         }
         return comp;
     }
+    
+    getDateRangeString(childCompObj) {
+        let dateRangeString = "";
+        const { start_date, end_date } = childCompObj;
+        if(start_date){
+            const sDate = new Date(start_date*1000);
+            dateRangeString += monthNames[sDate.getMonth()] + "`" + (sDate.getFullYear()+"").substr(2);
+            if(end_date) {
+                const eDate = new Date(end_date*1000);
+                dateRangeString += " - " + monthNames[eDate.getMonth()] + "`" +(eDate.getFullYear()+"").substr(2);    
+            } else
+                dateRangeString += " - Present";
+        }
+        return dateRangeString;
+    }
       
     render() {
         const style = {
@@ -72,7 +90,7 @@ class Modal extends React.Component{
                             {
                                 childCompArr.map((childCompObj, index) => 
                                     <div key={`sub-child-${index}`} className="sub-child-comp">
-                                        <Accordion title={childCompObj.name} isOpen={true}>
+                                        <Accordion title={childCompObj.name} subTitle={this.getDateRangeString(childCompObj)} isOpen={true}>
                                             <div className="description">
                                                 <div dangerouslySetInnerHTML={{ __html: childCompObj.description }} />
                                             </div>
