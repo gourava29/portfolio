@@ -27,7 +27,7 @@ export default class Accordion extends React.Component {
         });
         return (
             <div>
-                <div className="title acc-title" onClick={this.onAccClick}><span className={toggleIconClass}></span>{this.props.title}</div>
+                <div className="title acc-title" onClick={this.onAccClick}><span className={toggleIconClass}></span>{this.props.title} {this.props.subTitle}</div>
                 <div className={accContentClass}>
                     {this.props.children}
                 </div>

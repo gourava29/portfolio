@@ -8,7 +8,8 @@ describe('Accordion', () => {
 	
 	before(() => {
 		props = {
-			title: 'Test'
+			title: 'Test',
+			subTitle: 'subTitle'
 		};
 	    childComp = <div>
 	        child_comp
@@ -21,7 +22,7 @@ describe('Accordion', () => {
 	});
 
 	it('render', () => {
-	    expect(wrapper.find(".acc-title").html()).equals('<div class="title acc-title"><span class="fa fa-chevron-down"></span>'+props.title+'</div>');
+	    expect(wrapper.find(".acc-title").html()).equals('<div class="title acc-title"><span class="fa fa-chevron-down"></span>'+props.title+' '+props.subTitle+'</div>');
 	    expect(wrapper.find(".acc-content").children().nodes[0]).equals(childComp);
 	});	
 	

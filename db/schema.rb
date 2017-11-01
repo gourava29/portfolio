@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20171018033828) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "start_date"
+    t.bigint "end_date"
     t.bigint "work_id"
     t.index ["work_id"], name: "index_projects_on_work_id"
   end
@@ -103,6 +105,8 @@ ActiveRecord::Schema.define(version: 20171018033828) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "start_date"
+    t.bigint "end_date"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_works_on_user_id"
   end
