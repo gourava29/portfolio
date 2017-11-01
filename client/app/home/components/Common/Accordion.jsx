@@ -26,7 +26,7 @@ export default class Accordion extends React.Component {
             "fa-chevron-up": this.state.isOpen
         });
         return (
-            <div>
+            <div className='acc-container'>
                 <div className="title acc-title" onClick={this.onAccClick}><span className={toggleIconClass}></span>{this.props.title} {this.props.subTitle}</div>
                 <div className={accContentClass}>
                     {this.props.children}
