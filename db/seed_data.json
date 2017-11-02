@@ -61,17 +61,6 @@
                    "efficiency": 4
                 }
             ]
-        }, {
-           "data" : { "name": "DevOp" },
-           "technologies": [
-                {
-                   "name": "CircleCI",
-                   "efficiency": 4
-                }, {
-                   "name": "Jenkins",
-                   "efficiency": 3
-                }
-            ]
         }
     ],
     "works": [
@@ -86,27 +75,45 @@
                 {
                    "data" : {
                        "name": "DoesAnyone",
-                       "description": "<p>It is a classifieds website integrated with facebook. Users post their request and doesanyone finds the right people who can answer their questions using their social graph.</p>",
+                       "description": "<p>DoesAnyone was a classifieds website integrated with facebook. Users post their request and doesanyone finds the right people who can answer their questions using their social graph.</p>",
                        "start_date": 1341100800,
                        "end_date": 1364688000
                    },
                    "technologies": [ 
                         {
                            "name": "Angular",
-                           "description": "Angular for DoesAnyone"
+                           "description": "The entire UI was done using Angular V1.1 with jQuery, With many different directives including Custom Lazy Loading for the posts."
+                        }, {
+                           "name": "Java",
+                           "description": "The backend for doesanyone was written in java, creating all the services using java servlets. Including Java Schedulers for batch update of data from third-party sources. <b>Java2d<b> was also used to create custom pdf documents on each request."
+                        }, {
+                           "name": "MySQL",
+                           "description": "All the data was stored in Mysql Database for the application, few of the data were later moved to elastic search for faster indexing and search."
                         }
                     ]
                 }, {
                    "data" : {
                        "name": "Enabli",
-                       "description": "<p>It is a web/mobile application which scans statuses from Facebook, Twitter news feeds and filters out important requests using its proprietary algorithms. It also suggests how you can help your friends with their requests.</p>",
+                       "description": "<p>Enabli was a web/mobile application which scans statuses from Facebook, Twitter news feeds and filters out important requests using its proprietary algorithms. It also suggests how you can help your friends with their requests.</p>",
                        "start_date": 1364774400,
                        "end_date": 1393545600
                    },
                    "technologies": [
                         {
                            "name": "Angular",
-                           "description": "Angular for Enabli"
+                           "description": "The entire ui has been build on Angular V1.3 ."
+                        }, {
+                           "name": "NodeJS",
+                           "description": "NodeJs in the applicaiton was primarily used as a micro service which would batch update the data in MongoDB and Neo4J Graph DB, on request or on scheduled interval."
+                        }, {
+                           "name": "Neo4J Graph DB",
+                           "description": "Indexes and Relationships of the data were store in Graph, to get easy traversal through the relationships. Since the applicaiton was about connecting people based on their interests, likes."
+                        }, {
+                           "name": "MongoDB",
+                           "description": "MongoDB was the secondary source of data where we would go once we've acquired the result set from Neo4J Graph DB."
+                        }, {
+                        	"name": "Java",
+                        	"description": "The services could have easily written in NodeJS, but Java Servlets were used, as it had great support for Neo4j Graph DB Drivers. Making Java services the primary endpoint for the UI."
                         }
                     ]
                 }
@@ -122,35 +129,71 @@
                 {
                    "data" : {
                        "name": "PCPT (Product Cluster Planning Tool)",
-                       "description": "<p>“Product Cluster Planning Tool&quot; (PCPT) is built by Financial Planning &amp; Analysis (FP&amp;A) team to serve the merchants to perform assortment planning using Efficient Item Assortment (EIA) based on the historical sales volume purpose. PCPT is a web based application which provides the (plan for the product) assortment planning at cluster and sub-cluster level. However, in order to fully realize the business benefit from these decisions, the data needs to be disseminated to store level to be truly actionable.</p>",
+                       "description": "<p>“Product Cluster Planning Tool&quot; (PCPT) was built by Financial Planning &amp; Analysis (FP&amp;A) team to serve the merchants to perform assortment planning using Efficient Item Assortment (EIA) based on the historical sales volume purpose. PCPT is a web based application which provides the (plan for the product) assortment planning at cluster and sub-cluster level. However, in order to fully realize the business benefit from these decisions, the data needs to be disseminated to store level to be truly actionable.</p>",
                        "start_date": 1393977600,
                        "end_date": 1409270400
                    },
-                   "technologies": []
+                   "technologies": [
+                        {
+                           "name": "JAVASCRIPT",
+                           "description": "The application was built using Dojo Framework, with some of the components like tooltip overriden."
+                        }
+                   ]
                 }, {
                    "data" : {
                        "name": "IMS (Inhibit Management System)",
-                       "description": "<p>“Inhibit Management System”(IMS) is a web based applications, built to serve the management of inhibits(defective pieces) of client. It was built for a major semi-conductor manufacturing company to manage inventory of all the defective manufactured items. The complexity of the project was maintaining inventory for a combination of item. One item could be working but when connected with another item it might not work. Hence forth, combinations of items could also be defective.</p>",
+                       "description": "<p>“Inhibit Management System”(IMS) was a web based applications, built to serve the management of inhibits(defective pieces) of client. It was built for a major semi-conductor manufacturing company to manage inventory of all the defective manufactured items. The complexity of the project was maintaining inventory for a combination of item. One item could be working but when connected with another item it might not work. Hence forth, combinations of items could also be defective.</p>",
                        "start_date": 1409529600,
                        "end_date": 1440720000
                    },
-                   "technologies": []
+                   "technologies": [
+                        {
+                           "name": "JAVASCRIPT",
+                           "description": "The application was built using Dojo Framework, Widely used components being Grid and form elements. The primary challenge in this project being converting the 2d grid in to 3d format with custom set of selection options."
+                        },
+                        {
+                           "name": "Java",
+                           "description": "The backend supported REST Api, and was build using JAVA <b>Spring MVC</b>. Although my contribution to the services being limited to controllers."
+                        }
+                   ]
                 }, {
                    "data" : {
                        "name": "BGP (Business Grants Portal)",
-                       "description": "<p>“Business Grant Portal”(BGP) is a web application, built to serve management of grants for enterprises by the different government agencies. The application mainly dealt with forms, with different set of validations. It is build over ROR, with ReactJS as Front-End Javascript Framework.</p>",
+                       "description": "<p>“Business Grant Portal”(BGP) was a web application, built to serve management of grants for enterprises by the different government agencies. The application mainly dealt with forms, with different set of validations. It is build over ROR, with ReactJS as Front-End Javascript Framework.</p>",
                        "start_date": 1443657600,
                        "end_date": 1472601600
                    },
-                   "technologies": []
+                   "technologies": [
+                        {
+                           "name": "React",
+                           "description": "The version used were v0.14 to v15. Since the application was mostly about forms, we've built all the components at the least abstract level possible. The build version of the applicaiton was built using <b>Webpack</b>. Webpack plugins for reading yaml files were used to read the route configuration and create dynamic route. Making the routes for the application easily configurable. Apart from using existing webpack plugin we've also created our own custom plugins."
+                        }, {
+                           "name": "ROR",
+                           "description": "Apart from using regular gems like devise, cancan. We've also build our custom gems for the project which would create a scaffold of each type form by reading through a configuration yaml."
+                        }, {
+                           "name": "MySQL",
+                           "description": "MySql was the only source of data used in the applications. All the schema and joins being handles by Rails Configuration."
+                        }
+                   ]
                 }, {
                    "data" : {
                        "name": "WMS (Wealth Management System)",
-                       "description": "<p>“Wealth Management System”(WMS) is a web application, built to serve management of accounts for enterprises and non-retail of bank. The application mainly dealt with forms, with different set of validations. It is build with AngularJS(1.5 with typescript) as Front-End Javascript Framework. My roles in this project were as follows.</p>",
+                       "description": "<p>“Wealth Management System”(WMS) was a web application, built to serve management of accounts for enterprises and non-retail of bank. The application mainly dealt with forms, with different set of validations. It is build with AngularJS(1.5 with typescript) as Front-End Javascript Framework. My roles in this project were as follows.</p>",
                        "start_date": 1472601600,
                        "end_date": 1499385600
                    },
-                   "technologies": []
+                   "technologies": [
+                        {
+                           "name": "Angular",
+                           "description": "The version used were v1.6 with <b>TypeScript</b>. Typescript was choosen as we were looking forward to migration to 2.0 in future. <b>Webpack</b> being the build tool for the UI. The primary challenge in the application was storing the state for forms, as validations of the forms were dependent on each other. And each form was a route in itself containing more nested routes."
+                        }, {
+                           "name": "Java",
+                           "description": "<b>Spring MVC</b> framework was used to create Rest Api for the application. and <b>MyBatis</b> was used for Dao Mapping."
+                        }, {
+                           "name": "MySQL",
+                           "description": "MySql is one of the source of data in the application. Stored procedures were used for almost all kind of queries because of the complexity invovled."
+                        }
+                   ]
                 }
             ]
         }, {
@@ -166,7 +209,18 @@
                        "description": "<p>It is a hybrid application running on native and web both. Built using AngularJs, Sass in Frontend and Spring Boot At Backend consuming other banking micro services.</p>",
                        "start_date": 1499644800
                    },
-                   "technologies": []
+                   "technologies": [
+                       {
+                           "name": "Angular",
+                           "description": "The primary challenge in the application was storing the state for forms, as validations of the forms were dependent on each other.. <b>Grunt</b> being the build tool for the UI."
+                        }, {
+                           "name": "Java",
+                           "description": "<b>Spring Boot</b> framework along with <b>Katharsis</b> has been used to create services following JSONApi Standard. and <b>Camel</b> for conditional routing the endpoint to its services.<br/> Spring Boot Actuator has also been implemented for health check of applicaiton and its dependent services."
+                        }, {
+                           "name": "MySQL",
+                           "description": "MySql is one of the source of data in the application for production. We've used embeded <b>h2</b> database for development purpose."
+                        }
+                   ]
                 }
             ]
         }
