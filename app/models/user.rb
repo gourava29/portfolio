@@ -6,6 +6,5 @@ class User < ApplicationRecord
 
 	has_many :works, dependent: :destroy
 	has_many :skills, dependent: :destroy
-	has_many :hobbies, dependent: :destroy
 	has_many :connections, dependent: :destroy
 end
