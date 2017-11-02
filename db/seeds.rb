@@ -17,7 +17,6 @@ json[:works].each do |work|
         
         project[:technologies].each do |technology_used|
             tech_used_model = Technology.find_by(:name => technology_used[:name])
-            p technology_used[:description]
             Techcollabarator.create(description: technology_used[:description], technology_id: tech_used_model.id, project_id: project_model.id)
         end
     end
