@@ -1,8 +1,8 @@
 const persistedStateExpiry = 5*60*1000; //5min expirty
 export const loadState = () => {
     try {
-        const serializedState = window.localStorage.getItem("re-state");
-        const lastTimeSet = parseInt(window.localStorage.getItem("re-state-timestamp"));
+        const serializedState = localStorage.getItem("re-state");
+        const lastTimeSet = parseInt(localStorage.getItem("re-state-timestamp"));
         if((new Date().getTime() - lastTimeSet > persistedStateExpiry) || serializedState === null)
             return undefined;
         return JSON.parse(serializedState);
@@ -14,8 +14,8 @@ export const loadState = () => {
 
 export const saveState = (state) => {
     try {
-        window.localStorage.setItem("re-state", JSON.stringify(state));
-        window.localStorage.setItem("re-state-timestamp", new Date().getTime());
+        localStorage.setItem("re-state", JSON.stringify(state));
+        localStorage.setItem("re-state-timestamp", new Date().getTime());
     } catch (err) {
         
     }   
