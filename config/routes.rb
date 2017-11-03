@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   	resources :skills do
   		resources :technologies
   	end
-  	resources :hobbies
   end
   resources :works
   resources :projects
