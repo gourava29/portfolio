@@ -59,3 +59,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'mini_racer', platforms: :ruby
 gem 'webpacker_lite'
+gem 'pdfkit'
+gem 'render_anywhere'
+gem 'wkhtmltopdf-binary'

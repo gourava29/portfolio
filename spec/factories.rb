@@ -23,6 +23,8 @@ FactoryGirl.define do
   factory :user do
     name "John"
     role "Web Developer"
+    profile_desc "Profile Description"
+    email "test@test.com"
   end
 
   factory :skill do
@@ -35,5 +37,8 @@ FactoryGirl.define do
 
   factory :work do
     name "Company"
+    description "Description"
+    start_date 1393977600
+    end_date 1499385600
   end
 end

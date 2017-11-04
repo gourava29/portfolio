@@ -11,6 +11,7 @@ describe('MainComponent', () => {
   
   before(() => {
     props = {
+      id: 1,
       name: "Test title",
       role: 'Web Developer',
       connections: [
@@ -84,6 +85,11 @@ describe('MainComponent', () => {
 
     });
 
+  });
+  
+  it('Contains downloadLink', () => {
+    const downloadLink = wrapper.find(".downloadLink");
+    expect(downloadLink.find("a").props().href).to.equal("users/"+props.id+"/download");
   });
   
   it('Contains SocialConnections', () => {

@@ -204,6 +204,20 @@ html { font-size: 62.5%; }
 	}
     
 }
-
+.downloadLink {
+    font-size: 1rem;
+    right: 1rem;
+    position: fixed;
+    top: 1rem;
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    @include breakpoint(medium up) {
+    	font-size: 1.5rem;
+    }
+    a {
+    	color: black !important;
+    }
+}
 
 

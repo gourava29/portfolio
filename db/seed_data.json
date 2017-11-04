@@ -1,7 +1,9 @@
 {
     "data" : {
         "name": "Gourav Agarwal",
-        "role": "Web Developer"
+        "role": "Web Developer",
+        "email": "reachme@gouravagarwal.com",
+        "profile_desc": "To be associated with an organization that provides me an opportunity to intensify my skills with the latest cutting edge technology and to be a part of a team that consistently operates towards excellence."
     },
     "connections": [
         {
@@ -67,7 +69,8 @@
         {
            "data" : {
                "name": "Spellbound Information Solutions Pvt. Ltd.",
-               "description": "<p>SpellBound’s primary products are Social Networks called “Enabli” and “DoesAnyone”. I joined as a junior developer and currently lead a team of two interns while working closely with the CTO.</p>",
+               "role": "Jr. Software Engineer",
+               "description": "<p>SpellBound’s primary products are Social Networks called “Enabli” and “DoesAnyone”. I joined as a junior developer and later on lead a team of two interns while working closely with the CTO.</p>",
                "start_date": 1341100800,
                "end_date": 1393545600
            },
@@ -121,7 +124,8 @@
         }, {
            "data" : {
                "name": "Cognizant Technology Solutions Pvt. Ltd.",
-               "description":"<p>At Cognizant I work at Digital Engagement Practice (DEP).</p><p>DEP’s primary services are developing new web applications and providing support to existing web applications. I joined here as a Programmer Analyst and currently leading a team of two more associates.</p>",
+               "role": "Technology Lead",
+               "description":"<p>At Cognizant I was a part of Digital Engagement Practice (DEP).</p><p>DEP’s primary services were developing new web applications and providing support to existing web applications. Me serving different sectors like FinTech, ComTech and Govt Digital Services, added a great amount of value to my experience. My last project being a Web App for a financial instituion where i was leading the UI Development Team. </p>",
                "start_date": 1393977600,
                "end_date": 1499385600
            },
@@ -199,7 +203,8 @@
         }, {
            "data" : {
                "name": "Standard Chartered",
-               "description": "<p>At Standard Chartered, being a part of wealth Team, we are building Both Client Facing and RM Facing Applications for generating and showcasing set of personalized investment ideas.</p>",
+               "role": "Senior Consultant",
+               "description": "<p>At Standard Chartered, being a part of wealth Team, we are building Both Client and RM Facing Applications for generating and showcasing set of personalized investment ideas.</p>",
                "start_date": 1499644800
            },
            "projects": [

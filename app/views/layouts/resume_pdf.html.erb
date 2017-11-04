@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resume</title>
+  <style>
+    <%= Rails.application.assets.find_asset('application.scss').to_s %>
+  </style>
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" media="all" /> 
+</head>
+<body>
+  <%= yield %>
+</body>
+</html>
