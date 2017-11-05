@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   get '/child/:id', to: 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users do
-  	resources :works do 
+    resource :download, only: [:show], defaults: { format: 'pdf' }
+    resources :works do 
   		resources :projects
   	end
   	resources :skills do
@@ -17,5 +18,6 @@ Rails.application.routes.draw do
   resources :projects
   resources :skills
   resources :technologies
+
 end
 Rails.application.routes.default_url_options[:only_path] = true

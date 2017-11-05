@@ -1,0 +1,141 @@
+<div id="doc2" class="yui-t7">
+	<div id="inner">
+	
+		<div id="hd">
+			<div class="yui-gc">
+				<div class="yui-u first">
+					<h1><%=user.name%></h1>
+					<h3><%=user.role%></h3>
+				</div>
+
+				<div class="yui-u">
+					<div class="contact-info">
+						<h3><a href="mailto:<%=user.email%>"><%=user.email%></a></h3>
+						<h3>+65-84504718</h3>
+						<h3>Generated From: <a target="_blank" href="http://resume.gouravagarwal.com">resume.gouravagarwal.com</a></h3>
+					</div><!--// .contact-info -->
+				</div>
+			</div><!--// .yui-gc -->
+		</div><!--// hd -->
+
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b">
+					<div class="yui-gf">
+						<div class="yui-u first sub-title">
+							<h2>Profile</h2>
+						</div>
+						<div class="yui-u">
+							<p class="enlarge">
+								<%=user.profile_desc%>
+							</p>
+						</div>
+					</div><!--// .yui-gf -->
+
+					<div class="yui-gf">
+						<div class="yui-u first sub-title">
+							<h2>Skills</h2>
+						</div>
+						<div class="yui-u">
+
+								<div class="talent skill-desc">
+									<h2>Web Development</h2>
+									<p>5+ Years of experience developing web applications using latest frameworks and methodologies. Favouring TDD over others.</p>
+								</div>
+
+								<div class="talent skill-desc">
+									<h2>Release Mgmt</h2>
+									<p>Experience in different deployment and integration tools for continous integration and automatic deployment. <b>(Jenkins, CircleCI, Docker, AWS, Heroku)</b></p>
+								</div>
+
+								<div class="talent skill-desc">
+									<h2>Project Direction</h2>
+									<p>Proven ability to lead and manage team in development projects with 2+years of experience in <b>Agile</b> Development.</p>
+								</div>
+						</div>
+					</div><!--// .yui-gf -->
+
+					<div class="yui-gf">
+						<div class="yui-u first sub-title">
+							<h2>Technical</h2>
+						</div>
+						<div class="yui-u">
+						    <% @currentIndex = 0 %>
+						    <% (0..technologies.length/3-1).each do |techColIndex| %>
+						        <ul class="talent skill">
+						            <% (0..3).each do |techRowIndex| %>
+    						            <% 
+    						                tech = technologies[techRowIndex+techColIndex+@currentIndex]
+    						                unless tech.nil?
+    						            %>
+                                            <li>
+                                                <%=tech["name"]%> - <%=tech["efficiency"]*10%>%
+                                                <div class="progress">
+                                                    <div class="bar" style="width:<%=tech["efficiency"]*10%>%"></div>
+                                                </div>
+                                            </li>
+    						            <% end %>
+						            <% end %>
+                                </ul>
+                                <% @currentIndex += 3 %>
+                            <% end %>
+						 <!--   <ul class="talent">-->
+							<!--    <li>XHTML<%=technologies.length%></li>-->
+							<!--	<li>CSS</li>-->
+							<!--	<li class="last">Javascript</li>-->
+							<!--</ul>-->
+
+							<!--<ul class="talent">-->
+							<!--	<li>Jquery</li>-->
+							<!--	<li>PHP</li>-->
+							<!--	<li class="last">CVS / Subversion</li>-->
+							<!--</ul>-->
+
+							<!--<ul class="talent">-->
+							<!--	<li>OS X</li>-->
+							<!--	<li>Windows XP/Vista</li>-->
+							<!--	<li class="last">Linux</li>-->
+							<!--</ul>-->
+						</div>
+					</div><!--// .yui-gf-->
+
+					<div class="yui-gf" style="padding-bottom:0px">
+	
+						<div class="yui-u first sub-title">
+							<h2>Experience</h2>
+						</div><!--// .yui-u -->
+
+						<div class="yui-u">
+                            <% user.works.order("start_date DESC").each_with_index  do |work, index| %>
+                                <div class="job<%=(user.works.length == (index+1)) ? " last" : ""%>">
+    								<h2><%=work["name"]%></h2>
+    								<h3><%=work["role"]%></h3>
+    								<h4><%=DateTime.strptime(work["start_date"].to_s,'%s').strftime("%b`%y")%> - <%= work["end_date"].nil? ? "Present" : DateTime.strptime(work["end_date"].to_s,'%s').strftime("%b`%y")%></h4>
+    								<p><%=work["description"].gsub(/\<\/?p\>/,"")%></p>
+    							</div>
+                            <% end %>
+						</div><!--// .yui-u -->
+					</div><!--// .yui-gf -->
+					<div class="yui-gf last" style="padding-bottom:1px;">
+						<div class="yui-u first sub-title">
+							<h2>Education</h2>
+						</div>
+						<div class="yui-u">
+							<h2>JNTU - Hyderabad, India</h2>
+							<h3>Bachelor of Technology, Information Technology;</h3>
+						</div>
+					</div><!--// .yui-gf -->
+				</div><!--// .yui-b -->
+			</div><!--// yui-main -->
+		</div><!--// bd -->
+
+		<div id="ft" style="padding-bottom:0px">
+			<p><%=user.name%> &mdash; <a href="mailto:<%=user.email%>"><%=user.email%></a> &mdash; +65-84504718</p>
+		</div><!--// footer -->
+
+	</div><!-- // inner -->
+
+
+</div><!--// doc -->
+
+

@@ -89,6 +89,7 @@ export default class Main extends React.Component {
     
     return (
       <div>
+        <div className="downloadLink"><a href={"users/"+this.props.id+"/download"} target="_blank">Download Resume</a></div>
         <NodeComponent showEdges={false} level={this.props.level} childNodes={childNodes} mainNode={mainNode} location={this.props.location}/>
         <SocialConnections connections={this.props.connections}/>
       </div>
