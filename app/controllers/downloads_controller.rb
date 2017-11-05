@@ -16,6 +16,6 @@ class DownloadsController < ApplicationController
     send_file(resume_pdf.to_pdf, {
       filename: resume_pdf.filename,
       type: "application/pdf",
-      disposition: "inline"})
+      disposition: "attachment"})
   end
 end

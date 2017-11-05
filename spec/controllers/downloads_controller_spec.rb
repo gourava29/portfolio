@@ -12,7 +12,7 @@ RSpec.describe DownloadsController, type: :controller do
 		request.headers["accept"] = 'application/pdf'
         get :show, params: { user_id: user.id }
         expect(response.headers["Content-Type"]).to eq ("application/pdf")
-        expect(response.headers["Content-Disposition"]).to eq ("inline; filename=\"Resume_of_"+user.name+".pdf\"")
+        expect(response.headers["Content-Disposition"]).to eq ("attachment; filename=\"Resume_of_"+user.name+".pdf\"")
         project.delete
 		work.delete
 		user.delete
