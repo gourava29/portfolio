@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an online resume application built to showcase skills and work experience.
 
-Things you may want to cover:
+Things the application covers:
 
-* Ruby version
+* FrontEnd Development Using React
 
-* System dependencies
+* BackEnd Development Using ROR
 
-* Configuration
+* UI Testing using Mocha, Enzyme
 
-* Database creation
+* Backend Testing using Rspec
 
-* Database initialization
+* seed_data.json containing data for profile
 
-* How to run the test suite
+* PDFKit Gem for automatic creation of resume pdf from data.
 
-* Services (job queues, cache servers, search engines, etc.)
+* /.circleci/ containing configuration for CircleCI Integration
 
-* Deployment instructions
+To Run the application:
 
-* ...
+* git clone the application
+
+* yarn install && bundle install
+
+* foreman start -f Procfile.dev
+
+Note: Feel free to reach out if you need any help in using the application or if you have any suggestions.
