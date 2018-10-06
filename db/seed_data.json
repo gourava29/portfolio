@@ -205,14 +205,16 @@
                "name": "Standard Chartered",
                "role": "Senior Consultant",
                "description": "<p>At Standard Chartered, being a part of wealth Team, we are building Both Client and RM Facing Applications for generating and showcasing set of personalized investment ideas.</p>",
-               "start_date": 1499644800
+               "start_date": 1499644800,
+               "end_date": 1519948800,
            },
            "projects": [
                 {
                    "data" : {
                        "name": "PII (Personalised Investment Ideas)",
                        "description": "<p>It is a hybrid application running on native and web both. Built using AngularJs, Sass in Frontend and Spring Boot At Backend consuming other banking micro services.</p>",
-                       "start_date": 1499644800
+                       "start_date": 1499644800,
+                       "end_date": 1519948800
                    },
                    "technologies": [
                        {
@@ -228,7 +230,26 @@
                    ]
                 }
             ]
-        }
+        }, {
+           "data" : {
+               "name": "ThoughtWorks",
+               "role": "Senior Consultant",
+               "description": "<p>At <b>T</b>hought<b>W</b>orks, we are building customized applications for various construction industry.</p>",
+               "start_date": 1520726400,
+           },
+           "projects": [
+                {
+                   "data" : {
+                       "name": "Total Environmnet",
+                       "description": "<p>It is a hybrid application running on chrome, with WebGL to show and customize 3d House Modals, like we do in native application like AutoDesk.</p>",
+                       "start_date": 1520985600
+                   },
+                   "technologies": [
+                       
+                   ]
+                }
+            ]
+        },
     ]
     
 }
