@@ -1,5 +1,7 @@
 # README
 
+Link for the demo https://limitless-hollows-30532.herokuapp.com/
+
 This is an online resume application built to showcase skills and work experience.
 
 Things the application covers:
